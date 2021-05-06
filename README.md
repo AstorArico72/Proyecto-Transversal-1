@@ -1,4 +1,4 @@
-# Proyecto-Transversal-1
+# Proyecto Transversal #1
 El enunciado:
 "La Universidad de La Punta cree necesario utilizar un systema para poder llevar el registro de
 los alumnos de la institución y las materías que se dictan en la misma. Adicionalmente se
