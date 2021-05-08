@@ -1,7 +1,7 @@
 # Proyecto Transversal #1
 El enunciado está en el archivo PDF en la rama main.
 
-5/8 11:05: Añadida rama "Master".
+5/8 11:05 AM: Añadida rama "Master".
 Por favor usar la sección de discusiones para plantear qué vamos a hacer éste mes.
 
 Semana 1: Obtener una idea de qué clases hacer.
