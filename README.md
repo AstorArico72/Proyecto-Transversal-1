@@ -1,6 +1,8 @@
 # Proyecto Transversal #1
 El enunciado está en el archivo PDF en la rama principal.
 
+Anuncio 5/11 11:44 AM: Al hacer commits, pido que añadan una descripción de qué se ha añadido.
+
 5/8 11:05 AM: Añadida rama "Master".
 Por favor usar la sección de discusiones para plantear qué vamos a hacer éste mes.
 
