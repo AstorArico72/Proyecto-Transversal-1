@@ -1,3 +1,6 @@
+EDIT1: Astor, por favor, revisá la sección Discusiones.
+
+
 # Proyecto Transversal #1
 El enunciado está en el archivo PDF en la rama principal.
 
