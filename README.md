@@ -2,6 +2,7 @@
 El enunciado está en el archivo PDF en la rama principal.
 
 Semana 2: Acordar qué modelo seguir y crear la base de datos SQL.
+El próximo anuncio semanal será el lunes.
 
 Anuncio 5/11 11:44 AM: Al hacer commits, pido que añadan una descripción de qué se ha añadido.
 
