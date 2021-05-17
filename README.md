@@ -1,7 +1,8 @@
-EDIT1: Astor, por favor, revisá la sección Discusiones.
-
-
 # Proyecto Transversal #1
+Semana 3: Decidir qué modelo SQL usar y diseñar las tablas como clases Java.
+
+Gianfranco: Astor, por favor, revisá la sección Discusiones.
+
 El enunciado está en el archivo PDF en la rama principal.
 
 Semana 2: Acordar qué modelo seguir y crear la base de datos SQL.
