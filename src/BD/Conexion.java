@@ -1,12 +1,14 @@
 package BD;
-
 /**
  * Clase para conexion de la base de datos para el TP de Universidad
+ * IDEA: usar unicamente una conexion para resolver el TP, tanto para alumnos
+ * como para materias, de esta forma no hacemos tanto uso de la bd, 
+ * solamente cuando se requiera.
  * @author Pablo
  */
 public class Conexion {
     //Constantes de configuraciones predeterminadas
-    private final String pred[] = {"mariadb","localhost","3306","universidadgrupo1","root",""};
+    private final String[] PRED = {"mariadb","localhost","3306","universidadgrupo1","root",""};
     //Atributos
     private java.sql.Connection conexion = null; //null para control a futuro
     private String 
@@ -20,19 +22,20 @@ public class Conexion {
             driver;                 //Contiene nombre de la clase para conectar
     //Variable que contiene un mensaje para devolución futura
     private String mensaje = "";
+    //Prueba de Instrucciones a ejecutar como listado de trabajo
+    java.util.List<String> instrucciones = new java.util.ArrayList<>();
     //3 Constructores
     /**
      * Conectar predeterminado, para conectar a la bd localhost de Universidad, Usuario: root, sin Contraseña, puerto 3306.
      */
     public Conexion(){
-        usuario = pred[4];
-        contrasenia = pred[5];
-        libreria = pred[0];
-        direccion = pred[1];
-        puerto = pred[2];
-        bd = pred[3];
+        usuario = PRED[4];
+        contrasenia = PRED[5];
+        libreria = PRED[0];
+        direccion = PRED[1];
+        puerto = PRED[2];
+        bd = PRED[3];
         armar();
-        
     }
     /**
      * Conectar con usuario y contraseña, para conectar a la bd localhost de Universidad, puerto 3306.
@@ -42,10 +45,10 @@ public class Conexion {
     public Conexion(String usuario, String contrasenia) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
-        libreria = pred[0];
-        direccion = pred[1];
-        puerto = pred[2];
-        bd = pred[3];
+        libreria = PRED[0];
+        direccion = PRED[1];
+        puerto = PRED[2];
+        bd = PRED[3];
         armar();
     }
     /**
@@ -73,13 +76,10 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setUsuario(String usuario) {
-        if(usuario.isEmpty()) usuario = pred[4];
+        if(usuario.isEmpty()) usuario = PRED[4];
         this.usuario = usuario;
         //armar();
-        if(estaConectado()){
-            desconectar();
-            conectar();
-        }
+        reconectar();
         return this;
     }
     /**
@@ -88,13 +88,10 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setContrasenia(String contrasenia) {
-        if(contrasenia.isEmpty()) contrasenia = pred[5];
+        if(contrasenia.isEmpty()) contrasenia = PRED[5];
         this.contrasenia = contrasenia;
         //armar();
-        if(estaConectado()){
-            desconectar();
-            conectar();
-        }
+        reconectar();
         return this;
     }
     /**
@@ -103,7 +100,7 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setLibreria(String libreria) {
-        if(libreria.isEmpty()) libreria = pred[0];
+        if(libreria.isEmpty()) libreria = PRED[0];
         this.libreria = libreria;
         armar();
         return this;
@@ -114,7 +111,7 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setDireccion(String direccion) {
-        if(direccion.isEmpty()) direccion = pred[1];
+        if(direccion.isEmpty()) direccion = PRED[1];
         this.direccion = direccion;
         armar();
         return this;
@@ -125,7 +122,7 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setPuerto(String puerto) {
-        if(puerto.isEmpty()) puerto = pred[2];
+        if(puerto.isEmpty()) puerto = PRED[2];
         this.puerto = puerto;
         armar();
         return this;
@@ -136,17 +133,31 @@ public class Conexion {
      * @return una Conexion
      */
     public Conexion setBd(String bd) {
-        if(bd.isEmpty()) bd = pred[3];
+        if(bd.isEmpty()) bd = PRED[3];
         this.bd = bd;
         armar();
         return this;
     }
 
     /**
+     * Setter para modificar mensaje, se crea para poder hacer uso del mismo desde las clases hijas de conexion
+     * @param mensaje 
+     */
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+    
+    //Getters
+    /**
      * Getter para obtener el mensaje de devolucion.
      * @return Mensaje como String
      */
     public String getMensaje() {return mensaje;}
+    /**
+     * Getter de conexion.
+     * @return java.sql.Connection utilizado en esta conexion.
+     */
+    public java.sql.Connection getConexion(){return conexion;}
     
     //Metodos necesarios para trabajar con conexion
     /**
@@ -173,17 +184,28 @@ public class Conexion {
         }
         url += "://"+direccion+":"+puerto+"/"+bd;
         driver += ".jdbc.Driver";
-        if(estaConectado()){ //si esta conectado debe volver a conectarse
-            desconectar();
-            conectar();
-        }
+        reconectar();//si esta conectado que se reconecte
+        //prueba de lista de trabajo
+        instrucciones = new java.util.ArrayList<>();
         System.out.println(mensaje);
     }
     /**
-     * Metodo privado que devuelve true si la conexion no es nula
+     * Metodo para saber si conexion es null.
+     * @return true si no es null
      */
-    private boolean estaConectado(){return conexion != null;}
+    public boolean estaConectado(){return conexion != null;}
     
+    /**
+     * Metodo para reconectar
+     * @return un objeto de tipo Conexion
+     */
+    public Conexion reconectar(){
+        if(estaConectado()){
+            desconectar();
+            conectar();
+        }
+        return this;
+    }
     /**
      * Conectar con la BD.
      * @return una Conexion
@@ -209,6 +231,8 @@ public class Conexion {
                 conexion.close();
                 mensaje = "Conexion cerrada a la BD"+ bd;
                 conexion = null; //para futuros controles
+            }else{
+                mensaje = "Conexion ya cerrada a la BD"+ bd;
             }
         } catch (java.sql.SQLException ex) {
             mensaje = "Error al cerrar la conexion a la BD "+ bd +":\n"+ ex;
@@ -217,69 +241,36 @@ public class Conexion {
         //No devuelvo nada luego de desconectar pretendo no continuar utilizando la conexion, hasta volver a conectar
     }
     
-    //IDEAS:
-    //Utilizar Metodos desde esta misma clase para resolver el TP
-    //O usar los statement desde otra clase luego de realizar la conexion
-    
-    //ejemplo:
-    public Conexion altaAlumno(Recursos.Alumno alumno){
-        if(estaConectado()){
-            //insertar en alumnos los datos de alumno
-            mensaje = "Alta de Alumno en Desarrollo...";
-        }else{
-            mensaje = "Error alta de Alumno requiere primero una conección a la BD.";
-        }
-        System.out.println(mensaje);
+    //Prueba para usar lista de trabajo
+    /**
+     * Agrega una instrucción a la lista de trabajo, luego usar el metodo trabajar()
+     * La instrucción a agregar no se espera que devuelva nada, usar para insert o update
+     * En desarrollo para mejoras
+     * @param aAgregar String de una instrucción SQL
+     * @return una Conexion
+     */
+    public Conexion agregarInstruccion(String aAgregar) {
+        instrucciones.add(aAgregar);
         return this;
     }
-    public Conexion bajaAlumno(int id){
-        if(estaConectado()){
-            mensaje = "Baja de Alumno en Desarrollo...";
-            //por implementar en lugar de borrar modificar algo que dija que
-            //no esta activo en la universidad
-        }else{
-            mensaje = "Error baja de Alumno requiere primero una conección a la BD.";
-        }
-        System.out.println(mensaje);
-        return this;
-    }
-    public Conexion modificarAlumno(int id, Recursos.Alumno alumno){
-        if(estaConectado()){
-            mensaje = "Modificar Alumno en Desarrollo...";
-            //update de un id de alumno con datos de alumno
-        }else{
-            mensaje = "Error modificar Alumno requiere primero una conección a la BD.";
-        }
-        System.out.println(mensaje);
-        return this;
-    }
-    public Conexion altaMateria(Recursos.Materia materia){
-        if(estaConectado()){
-            mensaje = "Alta de Materia en Desarrollo...";
-            //insert en Materias los datos de la materia
-        }else{
-            mensaje = "Error alta de Materia requiere primero una conección a la BD.";
-        }
-        System.out.println(mensaje);
-        return this;
-    }
-    public Conexion bajaMateria(int id){
-        if(estaConectado()){
-            mensaje = "Baja de Materia en Desarrollo...";
-            //eliminar materia? o modificar algo
-        }else{
-            mensaje = "Error baja de Materia requiere primero una conección a la BD.";
-        }
-        System.out.println(mensaje);
-        return this;
-    }
-    public Conexion modificarMateria(int id, Recursos.Materia materia){
-        if(estaConectado()){
-            mensaje = "Modificar Materia en Desarrollo...";
-            //update en Materias los datos de la materia
-        }else{
-            mensaje = "Error modificar Materia requiere primero una conección a la BD.";
-        }
+    public Conexion trabajar(){
+        //ejecutar todas las instrucciones almacenadas,
+        //estas instrucciones no deberian devolver resultset
+        //ver que pasa si error en algunas de ellas
+        mensaje = "";
+        instrucciones.forEach(instruccion -> {
+            try {//no me gusta aca el try catch
+                java.sql.ResultSet resultado = conexion.createStatement().executeQuery(instruccion);
+                if(!resultado.next()) mensaje += "Instrucción SQL: "+ instruccion +".\n";
+                else{ 
+                    mensaje += "Instrucción SQL con resultSet!!: "+ instruccion +".\n";
+                    //que hacer con el resultset
+                }
+            } catch (java.sql.SQLException ex) {
+                mensaje += "No se logro ejecutar la instrucción SQL: "+ instruccion +"\nError: "+ ex +".\n";
+            }
+        });
+        instrucciones.clear(); //vacio lo que ya se ejecuto
         System.out.println(mensaje);
         return this;
     }
