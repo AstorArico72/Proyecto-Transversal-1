@@ -2,8 +2,8 @@
 -- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 13-05-2021 a las 17:24:11
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-05-2021 a las 21:39:57
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.5
 
@@ -18,104 +18,111 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `Universidad`
+-- Base de datos: `universidadgrupo1`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Alumno`
+-- Estructura de tabla para la tabla `alumno`
 --
 
-CREATE TABLE `Alumno` (
+CREATE TABLE `alumno` (
+  `ID_Alumno` int(11) NOT NULL COMMENT 'Llave primaria',
   `Nombre` varchar(50) NOT NULL COMMENT 'El nombre y el apellido en una sola columna. Me parece que 50 caracteres alcanzan.',
   `Legajo` int(6) NOT NULL COMMENT 'Ó "ID_Alumno". La llave primaria.',
-  `Aprobado` tinyint(1) NOT NULL,
+  `Estado` tinyint(1) DEFAULT 1 COMMENT 'Estado del alumno',
   `FechaNacimiento` date NOT NULL COMMENT 'También se puede reemplazar con un número entero para la edad.',
   `Correo` text DEFAULT NULL COMMENT 'No es obligatorio llenar ésto.',
   `Teléfono` text DEFAULT NULL COMMENT 'Tampoco ésto.',
-  `FechaInscripción` date NOT NULL,
+  `FechaInscripción` date DEFAULT NULL COMMENT 'Fecha de inscripción a la universidad',
   `Comentarios` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='No creo que necesitemos más datos para ésta tabla.';
 
---
--- Volcado de datos para la tabla `Alumno`
---
-
-INSERT INTO `Alumno` (`Nombre`, `Legajo`, `Aprobado`, `FechaNacimiento`, `Correo`, `Teléfono`, `FechaInscripción`, `Comentarios`) VALUES
-('Jay Smith', 73229, 0, '2001-04-01', NULL, NULL, '2019-03-01', 'Primera muestra de datos.');
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Inscripción`
+-- Estructura de tabla para la tabla `inscripcion`
 --
 
-CREATE TABLE `Inscripción` (
-  `Legajo` int(6) NOT NULL COMMENT 'Exportado de Alumno.',
-  `ID_Materia` int(3) NOT NULL COMMENT 'Exportado de Materia.',
-  `FechaInscripción` date NOT NULL
+CREATE TABLE `inscripcion` (
+  `ID_Inscripcion` int(11) NOT NULL COMMENT 'Clave primaria',
+  `ID_Alumno` int(11) NOT NULL,
+  `ID_Materia` int(11) NOT NULL,
+  `FechaInscripcion` date NOT NULL,
+  `Nota` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `Inscripción`
---
-
-INSERT INTO `Inscripción` (`Legajo`, `ID_Materia`, `FechaInscripción`) VALUES
-(73229, 101, '2019-03-04');
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Materia`
+-- Estructura de tabla para la tabla `materia`
 --
 
-CREATE TABLE `Materia` (
-  `ID_Materia` int(3) NOT NULL COMMENT 'El ID de la materia, o número de clase.',
+CREATE TABLE `materia` (
+  `ID_Materia` int(11) NOT NULL COMMENT 'El ID de la materia, o número de clase.',
   `Nombre` varchar(50) NOT NULL COMMENT '¿50 caracteres alcanzan?',
-  `Año` tinyint(1) NOT NULL COMMENT 'Ésto podría omitirse si el primer dígito del ID es el año (ie "201" para una materia del segundo año).'
+  `Año` tinyint(1) NOT NULL COMMENT 'Ésto podría omitirse si el primer dígito del ID es el año (ie "201" para una materia del segundo año).',
+  `Estado` tinyint(1) NOT NULL COMMENT 'Estado de la materia'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Podríamos añadir un campo más para el nombre del profesor.';
-
---
--- Volcado de datos para la tabla `Materia`
---
-
-INSERT INTO `Materia` (`ID_Materia`, `Nombre`, `Año`) VALUES
-(101, 'Matemáticas I', 1);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
--- Indices de la tabla `Alumno`
+-- Indices de la tabla `alumno`
 --
-ALTER TABLE `Alumno`
-  ADD PRIMARY KEY (`Legajo`);
+ALTER TABLE `alumno`
+  ADD PRIMARY KEY (`ID_Alumno`),
+  ADD UNIQUE KEY `Legajo` (`Legajo`);
 
 --
--- Indices de la tabla `Inscripción`
+-- Indices de la tabla `inscripcion`
 --
-ALTER TABLE `Inscripción`
-  ADD KEY `El legajo aquí es el legajo allá` (`Legajo`),
-  ADD KEY `La ID de la materia aquí es la ID de la materia allá.` (`ID_Materia`);
+ALTER TABLE `inscripcion`
+  ADD PRIMARY KEY (`ID_Inscripcion`),
+  ADD UNIQUE KEY `Id_Alumno` (`ID_Alumno`),
+  ADD UNIQUE KEY `Id_Materia` (`ID_Materia`);
 
 --
--- Indices de la tabla `Materia`
+-- Indices de la tabla `materia`
 --
-ALTER TABLE `Materia`
+ALTER TABLE `materia`
   ADD PRIMARY KEY (`ID_Materia`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `alumno`
+--
+ALTER TABLE `alumno`
+  MODIFY `ID_Alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave primaria', AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `inscripcion`
+--
+ALTER TABLE `inscripcion`
+  MODIFY `ID_Inscripcion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria';
+
+--
+-- AUTO_INCREMENT de la tabla `materia`
+--
+ALTER TABLE `materia`
+  MODIFY `ID_Materia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'El ID de la materia, o número de clase.', AUTO_INCREMENT=102;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `Inscripción`
+-- Filtros para la tabla `inscripcion`
 --
-ALTER TABLE `Inscripción`
-  ADD CONSTRAINT `El legajo aquí es el legajo allá` FOREIGN KEY (`Legajo`) REFERENCES `Alumno` (`Legajo`),
-  ADD CONSTRAINT `La ID de la materia aquí es la ID de la materia allá.` FOREIGN KEY (`ID_Materia`) REFERENCES `Materia` (`ID_Materia`);
+ALTER TABLE `inscripcion`
+  ADD CONSTRAINT `Inscripcion Alumno` FOREIGN KEY (`ID_Alumno`) REFERENCES `alumno` (`ID_Alumno`),
+  ADD CONSTRAINT `Inscripcion Materia` FOREIGN KEY (`ID_Materia`) REFERENCES `materia` (`ID_Materia`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
