@@ -115,13 +115,13 @@ public class Universidad {
         try {
             Class.forName ("org.mariadb.jdbc.Driver").getDeclaredConstructor ().newInstance ();
             conn = DriverManager.getConnection ("jdbc:mysql://localhost/Universidad", "root", ""); //"localhost" puede reemplazarse por "127.0.0.1" ó "::1".
-            String sqlQuery = "INSERT INTO Universidad.Alumno (Nombre, Legajo, Aprobado, FechaNacimiento, FechaInscripción) VALUES (?, ?, ?, ?, ?)";
+            String sqlQuery = "INSERT INTO Universidad.Alumno (Nombre, Aprobado, FechaNacimiento, FechaInscripción) VALUES (?, ?, ?, ?)";
             ps = conn.prepareStatement (sqlQuery);
             ps.setString (1, unAlumno.getNombre());
-            ps.setInt (2, unAlumno.getID());
-            ps.setInt (3, unAlumno.getEstado());
-            ps.setDate (4, Date.valueOf(unAlumno.getFechaNacimiento()));
-            ps.setDate (5, Date.valueOf(LocalDate.now ()));
+            //Borrada parte del método porque el ID es auto-incremental.
+            ps.setInt (2, unAlumno.getEstado());
+            ps.setDate (3, Date.valueOf(unAlumno.getFechaNacimiento()));
+            ps.setDate (4, Date.valueOf(LocalDate.now ()));//Por defecto la fecha es hoy. Arreglar más tarde.
             ps.execute ();
             rs = ps.executeQuery();
             System.out.println ("Conexión exitosa.");
@@ -149,11 +149,10 @@ public class Universidad {
         try {
             Class.forName ("org.mariadb.jdbc.Driver").getDeclaredConstructor ().newInstance ();
             conn = DriverManager.getConnection ("jdbc:mysql://localhost/Universidad", "root", "");
-            String sqlQuery = "INSERT INTO Universidad.Materia (ID_Materia, Nombre, Año) VALUES (?, ?, ?)";
+            String sqlQuery = "INSERT INTO Universidad.Materia (Nombre, Año) VALUES (?, ?)"; //Como el ID de la materia es auto-incremental, borré la parte de insertar el ID.
             ps = conn.prepareStatement (sqlQuery);
-            ps.setInt (1, unaMateria.getID());
-            ps.setString (2, unaMateria.getNombre());
-            ps.setInt (3, unaMateria.getAño());
+            ps.setString (1, unaMateria.getNombre());
+            ps.setInt (2, unaMateria.getAño());
             ps.execute ();
             rs = ps.executeQuery();
             System.out.println ("Conexión exitosa.");
@@ -177,5 +176,5 @@ public class Universidad {
         }
     }
 }
-// [Suspiro] 181 líneas, y éstos son métodos que van a invocarse desde la aplicación gráfica... y sobrecargué demasiado el constructor de Alumno. Opiniones?
+// [Suspiro] 180 líneas, y éstos son métodos que van a invocarse desde la aplicación gráfica... y sobrecargué demasiado el constructor de Alumno. Opiniones?
 //En realidad sólo escribí manualmente unas 40 líneas, pero bueno, el poder de CTRL-C y CTRL-V.
