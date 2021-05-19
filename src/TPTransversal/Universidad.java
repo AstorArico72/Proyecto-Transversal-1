@@ -14,7 +14,13 @@ public class Universidad {
         System.out.println(nuevo.toString());
         
         //Prueba de Materia nueva
+        Recursos.Materia nuevaM = new Recursos.Materia();
+        nuevaM.setNombreMateria("Laboratorio 1");
+        System.out.println(nuevaM.toString());
         
+        //Prueba de Cursada
+        Recursos.Cursada cursada = new Recursos.Cursada(nuevo, nuevaM, java.time.LocalDate.now(), 8);
+        System.out.println(cursada.toString());
     }
     
 }
