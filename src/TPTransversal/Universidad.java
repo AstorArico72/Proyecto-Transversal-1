@@ -1,26 +1,79 @@
-package universidad; //Así terminó llamandose mi paquete. Pueden editarlo para usar las otras clases.
+/**
+ * Barrionuevo Pablo: edito lo ultimo subido, para adaptarse al TP
+ */
+
+package TPTransversal; //Así terminó llamandose mi paquete (Universidad). Pueden editarlo para usar las otras clases.
+//En este caso como todos usamos la misma estructura, no sirve que cada uno tenga estructuras distintas.
+
+/*
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 //Todos ésos imports están en uso.
+*/
 public class Universidad {
 
     /**
+     * Metodo main
      * @param args
      */
     public static void main(String[] args) {
         /*
+        Barrionuevo Pablo: Edito para usar Recursos.Materia
         Por ahora, es necesario instanciar objetos en el main.
         A la hora de crear la aplicación gráfica, éso se corregirá.
         */
-        Materia lab2 = new Materia (219, "Laboratorio II", 2);
-        System.out.println (lab2);
-        nuevaMateria (lab2);
+        Recursos.Materia lab2 = new Recursos.Materia("Laboratorio II", 2, true);
+        System.out.println(lab2.toString());
+        //nuevaMateria (lab2); -> lo hacemos con conexion establecida
+//=======<<<<<<< Upstream, based on origin/master
+        
+        //Prueba de Alumno nuevo
+        Recursos.Alumno nuevo = new Recursos.Alumno();
+        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10000); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
+        System.out.println(nuevo.toString());
+        
+        //Prueba de Materia nueva
+        Recursos.Materia nuevaM = new Recursos.Materia();
+        nuevaM.setNombreMateria("Laboratorio 1");
+        System.out.println(nuevaM.toString());
+        
+        //Prueba de Cursada
+        Recursos.Cursada cursada = new Recursos.Cursada(nuevo, nuevaM, java.time.LocalDate.now(), 8);
+        System.out.println(cursada.toString());
+        
+        
+        //Prueba de Conexion
+        BD.Conexion c = new BD.Conexion();
+        if(c.getConexion() != null){
+            //Pruebas de MateriaData
+            BD.MateriaData md = new BD.MateriaData(c);
+            
+            System.out.println("Guardar una Materia");                          //.....Guardar Materia
+            int idNuevo = md.guardarMateria(nuevaM);
+            nuevaM.setIdMateria(idNuevo);
+            
+            System.out.println("Buscar la Materia con id: "+idNuevo);           //.....Buscar Materia
+            System.out.println(md.buscarMateria(idNuevo).toString());
+            
+            System.out.println("Actualizar una Materia");                       //.....Actualizar Materia
+            nuevaM.setAnio(2); nuevaM.setNombreMateria("Laboratorio de Programación 2");
+            System.out.println(md.buscarMateria(idNuevo).toString());
+            
+            
+        }else{
+            //no se establecio la conexion
+        }
+//>>>>>>> 64e5c14 Modificaciones segun pruebas
     }
     /*
+    Barrionuevo Pablo: edito para usar el paquete BD, que tiene todo esto en conexion, y en las clases data
+    
+    
+    
     Creo que aquí podrían ir todos los métodos estáticos para inscribir y borrar alumnos de las materias.
-    */
+
     public static DateTimeFormatter globalDTF = DateTimeFormatter.ofPattern ("M/d/yyyy"); //Dejé así el formateador porque así suelo escribir las fechas (i.e. hoy es 5/19/2021).
     //No tengo problemas al cambiar el orden. Pero recomendaría omitir los ceros innecesarios ("M" en lugar de "MM").
     private static Connection conn = null;
@@ -108,7 +161,7 @@ public class Universidad {
             System.err.println ("Argumento ilegal: " + ex.getMessage());
         } catch (InvocationTargetException ex) {
             System.err.println ("Excepción de objetivo de invocamiento encontrada: " + ex.getMessage());
-        }
+    }
     }
     
     public static void nuevoAlumno (Alumno unAlumno) { //Hay que colocar el constructor de Alumno aquí, pero lo sobrecargué mucho.
@@ -175,6 +228,8 @@ public class Universidad {
             System.err.println ("Excepción de objetivo de invocamiento encontrada: " + ex.getMessage());
         }
     }
+    */
 }
+
 // [Suspiro] 180 líneas, y éstos son métodos que van a invocarse desde la aplicación gráfica... y sobrecargué demasiado el constructor de Alumno. Opiniones?
 //En realidad sólo escribí manualmente unas 40 líneas, pero bueno, el poder de CTRL-C y CTRL-V.

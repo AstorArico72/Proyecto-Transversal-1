@@ -1,11 +1,11 @@
-package universidad;
+package TPTransversal;
 import java.util.HashMap;
 import java.time.LocalDate;
-import static universidad.Universidad.globalDTF;
+//import static universidad.Universidad.globalDTF;
 
 public class Alumno {
     private String nombre;
-    //Borrado el legajo porque éste es auto-incremental.
+    //Borrado el legajo porque éste es auto-incremental. igual lo usamos en las clases que contienen todos los datos
     private int estado;
     private String correo;
     private String comentarios;
@@ -15,7 +15,8 @@ public class Alumno {
     public Alumno (String nombre, int estado, String nacimiento) {
         this.nombre = nombre;
         this.estado = estado;
-        this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF); //El DTF estático de la clase Universidad.
+        //this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF); //El DTF estático de la clase Universidad.
+        this.fechaNacimiento = LocalDate.parse (nacimiento);
     }
     /*
     SOBRECARGA DE CONSTRUCTORES, INICIO!
@@ -23,14 +24,16 @@ public class Alumno {
     public Alumno (String nombre, int estado, String nacimiento, String correo) {
         this.nombre = nombre;
         this.estado = estado;
-        this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF);
+        //this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF);
+        this.fechaNacimiento = LocalDate.parse (nacimiento);
         this.correo = correo;
     }
     
     public Alumno (String nombre, int estado, String nacimiento, String correo, String comentarios) {
         this.nombre = nombre;
         this.estado = estado;
-        this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF);
+        //this.fechaNacimiento = LocalDate.parse (nacimiento, globalDTF);
+        this.fechaNacimiento = LocalDate.parse (nacimiento);
         this.correo = correo;
         this.comentarios = comentarios;
     }

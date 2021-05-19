@@ -26,14 +26,11 @@ public class MateriaData {
     private Connection con;
     //Constructores
     public MateriaData (Conexion con){
-        try {
-            this.con = con.getConexion();
-        } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(null, "Error de Conexion");
-        }
+        this.con = con.getConexion();
     }
     //Metodos
-    public void guardarMateria(Materia ma){
+    public int guardarMateria(Materia ma){
+        int idnuevo = 0;
         String sql = "Insert into materia (nombre, anio, activo) Values (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -46,13 +43,15 @@ public class MateriaData {
             
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                ma.setIdMateria(rs.getInt(1));
+                //ma.setIdMateria(rs.getInt(1));//esto modifica el id en el parametro pero no en la variable que se pasa
+                idnuevo = rs.getInt(1);
             }
             ps.close();
         
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de Conexion");
         }
+        return idnuevo;
     }
     
     public List <Materia> obtenerMaterias(){
