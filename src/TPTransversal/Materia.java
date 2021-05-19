@@ -2,13 +2,12 @@ package universidad;
 import java.util.ArrayList;
 
 public class Materia {
-    private int idMateria;
+    //Borrado el ID porque éste es auto-incremental.
     private String nombreMateria;
     private int año;
     private ArrayList <Integer> alumnos = new ArrayList <> (); //No sé si ésto sea necesario.
 
-    public Materia (int id, String nombre, int año) {
-        this.idMateria = id;
+    public Materia (String nombre, int año) {
         this.nombreMateria = nombre;
         this.año = año;
     }
