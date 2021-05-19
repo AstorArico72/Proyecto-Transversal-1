@@ -1,97 +1,184 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Barrionuevo Pablo: Edite para usar con el sql de Astor
  */
 package Recursos;
-
-import java.time.LocalDate;
 
 /**
  *
  * @author melid
  */
 public class Alumno {
+    //..........................................................................Constantes
+    //Constante con todos los valores default no requeridos
+    private final String[] DEFAULT = {"1","No posee","No posee",java.time.LocalDate.now().toString(),"Sin comentarios"};
     
-    private int idAlumno;
-    private String nombre;
-    private String apellido;
-    private LocalDate fechNac;
-    private int legajo;
-    private boolean estado;
-
+    //..........................................................................Atributos
+    private int idAlumno;                       //id,                                       requerido (NULL) autoincremental
+    private String nombre;                      //nombre y apellido o apellido y nombre,    requerido
+    private int legajo;                         //numero de legajo,                         requerido
+    private int estado;                         //0: inactivo, 1: cursando                  no req                                      DEFAULT[0]
+    private java.time.LocalDate fechNac;        //YYYY-MM-DD                                requerido
+    private String correo;                      //correo de contacto                        no req                                      DEFAULT[1]
+    private String tel;                         //telefono de contacto                      no req                                      DEFAULT[2]
+    private java.time.LocalDate fechIns;        //fecha idem formato                        no requerido fecha actual para inscribir    DEFAULT[3]
+    private String comentarios;                 //comentarios                               no req                                      DEFAULT[4]
+    
+    //..........................................................................Constructores
+    /**
+     * Alumno con datos default
+     */
     public Alumno() {
+        //datos requeridos
+        idAlumno = 0;
+        nombre = "";
+        legajo = 0;
+        fechNac = java.time.LocalDate.now();
+        //datos no requeridos
+        completarDefault();
     }
-
-    public Alumno(String nombre, String apellido, LocalDate fechNac, int legajo, boolean estado) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechNac = fechNac;
-        this.legajo = legajo;
-        this.estado = estado;
-    }
-
-    public Alumno(int idAlumno, String nombre, String apellido, LocalDate fechNac, int legajo, boolean estado) {
+    /**
+     * Alumno con solamente datos requeridos
+     * @param idAlumno
+     * @param nombre
+     * @param legajo
+     * @param fechNac 
+     */
+    public Alumno(int idAlumno, String nombre, int legajo, java.time.LocalDate fechNac) {
+        //datos requeridos
         this.idAlumno = idAlumno;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.legajo = legajo;
         this.fechNac = fechNac;
+        //datos no requeridos
+        completarDefault();
+    }
+    /**
+     * Alumno con todos los datos
+     * @param idAlumno
+     * @param nombre
+     * @param legajo
+     * @param estado
+     * @param fechNac
+     * @param correo
+     * @param tel
+     * @param fechIns
+     * @param comentarios 
+     */
+    public Alumno(
+            int idAlumno, String nombre, int legajo, int estado, 
+            java.time.LocalDate fechNac, String correo, String tel, 
+            java.time.LocalDate fechIns, String comentarios) {
+        this.idAlumno = idAlumno;
+        this.nombre = nombre;
         this.legajo = legajo;
         this.estado = estado;
+        this.fechNac = fechNac;
+        this.correo = correo;
+        this.tel = tel;
+        this.fechIns = fechIns;
+        this.comentarios = comentarios;
     }
+    //..........................................................................Getters de todos los atributos
 
     public int getIdAlumno() {
         return idAlumno;
-    }
-
-    public void setIdAlumno(int idAlumno) {
-        this.idAlumno = idAlumno;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public int getLegajo() {
+        return legajo;
     }
 
-    public String getApellido() {
-        return apellido;
+    public int getEstado() {
+        return estado;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public LocalDate getFechNac() {
+    public java.time.LocalDate getFechaNacimiento() {
         return fechNac;
     }
 
-    public void setFechNac(LocalDate fechNac) {
-        this.fechNac = fechNac;
+    public String getCorreo() {
+        return correo;
     }
 
-    public int getLegajo() {
-        return legajo;
+    public String getTelefono() {
+        return tel;
+    }
+
+    public java.time.LocalDate getFechaInscripcion() {
+        return fechIns;
+    }
+
+    public String getComentarios() {
+        return comentarios;
+    }
+    
+    //..........................................................................Setters de todos los atributos
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setLegajo(int legajo) {
         this.legajo = legajo;
     }
 
-    public boolean isEstado() {
-        return estado;
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setFechaNacimiento(java.time.LocalDate fechNac) {
+        this.fechNac = fechNac;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setTelefono(String tel) {
+        this.tel = tel;
+    }
+
+    public void setFechaInscripcion(java.time.LocalDate fechIns) {
+        this.fechIns = fechIns;
+    }
+    
+    public void setComentarios(String comentarios) {    
+        this.comentarios = comentarios;
     }
 
     @Override
     public String toString() {
-        return "Alumno{" + "nombre=" + nombre + ", apellido=" + apellido + '}';
+        return "Alumno{" 
+                + "idAlumno=" + idAlumno 
+                + ", nombre=" + nombre 
+                + ", legajo=" + legajo 
+                + ", estado=" + estado 
+                + ", fecha de Nacimiento=" + fechNac 
+                + ", correo=" + correo 
+                + ", telefono=" + tel 
+                + ", fecha de Inscripcion=" + fechIns 
+                + ", comentarios=" + comentarios + '}';
     }
-   
+    
+    
+
+    //..........................................................................Metodos Privados
+    /**
+     * Metodo privado para completar con valores default los datos no requeridos
+     */
+    private void completarDefault() {
+        estado = Integer.parseInt(DEFAULT[0]);
+        correo = DEFAULT[1];
+        tel = DEFAULT[2];
+        fechIns = java.time.LocalDate.parse(DEFAULT[3]);
+        comentarios = DEFAULT[4];
+    }
     
 }

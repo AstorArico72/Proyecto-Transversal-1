@@ -22,21 +22,19 @@ import javax.swing.JOptionPane;
  * @author melid
  */
 public class MateriaData {
+    //Atributos
     private Connection con;
-    
+    //Constructores
     public MateriaData (Conexion con){
         try {
             this.con = con.getConexion();
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(null, "Error de Conexion");
         }
-    
-    
     }
-    
+    //Metodos
     public void guardarMateria(Materia ma){
-        String sql = "Insert into materia (nombre, anio, activo)Values (?,?,?)";
-        
+        String sql = "Insert into materia (nombre, anio, activo) Values (?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
