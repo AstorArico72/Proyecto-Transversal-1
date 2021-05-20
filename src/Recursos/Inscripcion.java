@@ -3,8 +3,6 @@
  */
 package Recursos;
 
-import java.time.LocalDate;
-
 /**
  *
  * @author melid
@@ -55,7 +53,7 @@ public class Inscripcion {
         return materia;
     }
 
-    public LocalDate getFechaInscripcion() {
+    public java.time.LocalDate getFechaInscripcion() {
         return fechInsc;
     }
 
@@ -76,7 +74,7 @@ public class Inscripcion {
         this.materia = materia;
     }
 
-    public void setFechaInscripcion(LocalDate fechInsc) {
+    public void setFechaInscripcion(java.time.LocalDate fechInsc) {
         this.fechInsc = fechInsc;
     }
 

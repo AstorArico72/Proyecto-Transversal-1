@@ -2,6 +2,8 @@ package Vistas;
 public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
+        setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height);
+        setLocationRelativeTo(null);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
