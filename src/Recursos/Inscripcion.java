@@ -7,25 +7,33 @@ package Recursos;
  *
  * @author melid
  */
-public class Cursada {
-    
+public class Inscripcion {
+    //
+    final private String DEF[] = {"0",java.time.LocalDate.now().toString(),"8.5"};
+    //Atributos
     private int idCursada;
     private Alumno alumno;
     private Materia materia;
     private java.time.LocalDate fechInsc;
     private double nota;
 
-    public Cursada() {
+    public Inscripcion() {
+        idCursada = Integer.parseInt(DEF[0]);
+        alumno = new Alumno();
+        materia = new Materia();
+        fechInsc = java.time.LocalDate.parse(DEF[1]);
+        nota = Double.parseDouble(DEF[2]);
     }
 
-    public Cursada(Alumno alumno, Materia materia, java.time.LocalDate fechInsc,double nota) {
+    public Inscripcion(Alumno alumno, Materia materia, java.time.LocalDate fechInsc,double nota) {
+        idCursada = Integer.parseInt(DEF[0]);
         this.alumno = alumno;
         this.materia = materia;
         this.fechInsc = fechInsc;
         this.nota = nota;
     }
 
-    public Cursada(int idCursada, Alumno alumno, Materia materia, java.time.LocalDate fechInsc, double nota) {
+    public Inscripcion(int idCursada, Alumno alumno, Materia materia, java.time.LocalDate fechInsc, double nota) {
         this.idCursada = idCursada;
         this.alumno = alumno;
         this.materia = materia;

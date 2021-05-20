@@ -39,15 +39,15 @@ public class Universidad {
         nuevaM.setNombreMateria("Matemática 1");nuevaM.setAnio(1);
         System.out.println(nuevaM.toString());
         
-        //Prueba de Cursada
-        Recursos.Cursada cursada = new Recursos.Cursada(nuevo, nuevaM, java.time.LocalDate.now(), 8);
+        //Prueba de Inscripcion
+        Recursos.Inscripcion cursada = new Recursos.Inscripcion(nuevo, nuevaM, java.time.LocalDate.now(), 8);
         System.out.println(cursada.toString());
         
         
         //Prueba de Conexion
         BD.Conexion c = new BD.Conexion();
         if(c.getConexion() != null){
-            //Pruebas de MateriaData
+            /*Comentar este bloque para realizar las pruebas                    //Pruebas de MateriaData
             BD.MateriaData md = new BD.MateriaData(c);
             
             System.out.println("Guardar Materias");                             //.....Guardar Materia
@@ -66,12 +66,23 @@ public class Universidad {
             System.out.println("Desactivar una Materia");                       //.....Desactivar Materia
             md.desactivarMateria(idNuevo);
             
-            //.....Mostrar todas las materias en la tabla materias de la BD
+            //.....Mostrar todas las materias en la tabla materias de la BD     //.....Obtener Materias
             System.out.println("Todas las Materias:\n"
                 +md.obtenerMaterias().toString());
+            */                                                                  //Final de Pruebas de MateriaData
+            
+//            /*Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
+            
+//            */                                                                  //Final de Pruebas de AlumnoData
+            
+//            /*Comentar este bloque para realizar las pruebas                    //Pruebas de InscripcionData
+            
+//            */                                                                  //Final de Pruebas de InscripcionData
         }else{
-            //no se establecio la conexion
+            System.out.println("Error en conexion...");
         }
+        //Vistas de la interfaz de usuario
+        //Vistas.Principal.iniciar();
 //>>>>>>> 64e5c14 Modificaciones segun pruebas
     }
     /*
