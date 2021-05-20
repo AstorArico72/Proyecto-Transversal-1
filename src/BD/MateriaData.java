@@ -36,7 +36,7 @@ public class MateriaData {
             }
             ps.close();
         } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Guardar:\n"+ex.getMessage());
         }
         return idnuevo;
     }
@@ -60,7 +60,7 @@ public class MateriaData {
             }
             ps.close();
         } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Listar:\n"+ex.getMessage());
         }
         return materias;
     }
@@ -82,7 +82,7 @@ public class MateriaData {
             }
             ps.close();
         } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Buscar:\n"+ex.getMessage());
         }
         return mat;
     }
@@ -95,12 +95,12 @@ public class MateriaData {
             ps.executeUpdate();
             ps.close();
         } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Desactivar:\n"+ex.getMessage());
         }
      }
      
      public void actualizarMateria(Recursos.Materia mat){
-        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=?, WHERE "+ CAMPOS[1] +"=?;";
+        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=?, WHERE "+ CAMPOS[0] +"=?;";
         java.sql.PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS)) {
@@ -110,7 +110,7 @@ public class MateriaData {
             ps.executeUpdate();
             ps.close();
         } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Actualizar:\nSQL:"+ sql +"\n"+ex.getMessage());
         }
      }
     

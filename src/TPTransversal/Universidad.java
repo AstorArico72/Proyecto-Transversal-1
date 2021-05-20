@@ -36,7 +36,7 @@ public class Universidad {
         
         //Prueba de Materia nueva
         Recursos.Materia nuevaM = new Recursos.Materia();
-        nuevaM.setNombreMateria("Laboratorio 1");
+        nuevaM.setNombreMateria("Laboratorio 1");nuevaM.setAnio(1);
         System.out.println(nuevaM.toString());
         
         //Prueba de Cursada
@@ -59,6 +59,7 @@ public class Universidad {
             
             System.out.println("Actualizar una Materia");                       //.....Actualizar Materia
             nuevaM.setAnio(2); nuevaM.setNombreMateria("Laboratorio de Programación 2");
+            md.actualizarMateria(nuevaM);
             System.out.println(md.buscarMateria(idNuevo).toString());
             
             

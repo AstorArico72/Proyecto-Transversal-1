@@ -1,5 +1,6 @@
 /*
  * Barrionuevo Pablo: edito para resolver conflictos con los throws
+ * Barrionuevo Pablo: edito la conexion para que funcione con UniversidadGrupo1
  */
 package BD;
 /**
@@ -7,29 +8,25 @@ package BD;
  * @author melid
  */
 public class Conexion {
-    
-    private String url = "jdbc:mysql://localhost/universidad-G1";
-    private String usuario = "root";
-    private String password = "";
+    //Constante
+    final private String 
+        DRIVER = "org.mariadb.jdbc.Driver",
+        CONF[] = {"localhost","3306","UniversidadGrupo1","root",""};
+    //Atributos
+    private String url = "jdbc:mysql://"+ CONF[0] +":"+ CONF[1] +"/"+ CONF[2];
+    private String usuario = CONF[3];
+    private String password = CONF[4];
     private java.sql.Connection conexion = null;
     
     public Conexion(){
-        try {
-            Class.forName ("org.mariadb.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error Driver: "+ex);
-        }
+        registrarDriver();
     }
 
     public Conexion (String url, String usuario, String password)throws ClassNotFoundException{
         this.url = url;
         this.usuario = usuario;
         this.password = password;
-        try {
-            Class.forName ("org.mariadb.jdbc.Driver");
-        } catch (ClassNotFoundException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error Driver: \n"+ex);
-        }
+        registrarDriver();
     }
     
     public java.sql.Connection getConexion(){
@@ -42,5 +39,13 @@ public class Conexion {
             }
         }
         return conexion;
+    }
+
+    private void registrarDriver() {
+        try {
+            Class.forName (DRIVER);
+        } catch (ClassNotFoundException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error Driver:\n"+ex.getMessage());
+        }
     }
 }
