@@ -82,7 +82,7 @@ public class Universidad {
             System.out.println("Error en conexion...");
         }
         //Vistas de la interfaz de usuario
-        //Vistas.Principal.iniciar();
+        Vistas.Principal.iniciar();
 //>>>>>>> 64e5c14 Modificaciones segun pruebas
     }
     /*

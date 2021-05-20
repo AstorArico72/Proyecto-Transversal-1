@@ -3,10 +3,6 @@
  */
 package BD;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * Clase Inscripcion para usar con conexiones a la tabla materia de la BD
  * @author melid
@@ -166,6 +162,37 @@ public class InscripcionData {
         return idInscripcion;
     }
     /**
+     * Guardar Inscripcion
+     * @param inscripcion
+     * @return 
+     */
+    public int guardarInscripcion(Recursos.Inscripcion inscripcion){
+        int idInscripcion = 0;
+        String sql = "INSERT INTO "+ TINSCRIPCION +" ("+ 
+                CAMPOSINSCRIPCION[1] +", "+ 
+                CAMPOSINSCRIPCION[2] +", "+ 
+                CAMPOSINSCRIPCION[3] +", "+ 
+                CAMPOSINSCRIPCION[4] +") VALUES (?,?,?,?);";
+        java.sql.PreparedStatement ps;
+        java.sql.ResultSet rs;
+        try {
+            ps = con.prepareStatement(sql,java.sql.Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, inscripcion.getAlumno().getIdAlumno());
+            ps.setInt(2, inscripcion.getMateria().getIdMateria());
+            ps.setDate(3, java.sql.Date.valueOf(inscripcion.getFechaInscripcion()));
+            ps.setDouble(4, inscripcion.getNota());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if(rs.next()){
+                idInscripcion = rs.getInt(1);
+            }
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al inscribir un alumno a una materia:\n"+ex.getMessage());
+        }
+        return idInscripcion;
+    }
+    /**
      * Des-incribir alumno por id de inscripcion
      * @param id 
      */
@@ -175,6 +202,18 @@ public class InscripcionData {
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n"+ex.getMessage());
+        }
+    }
+    
+    public void desinscribirAlumno(Recursos.Inscripcion inscripcion){
+        String sql = "DELETE FROM "+ TINSCRIPCION +" WHERE "+ CAMPOSINSCRIPCION[0] +" = ?;";
+        java.sql.PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, inscripcion.getIdInscripcion());
             ps.executeUpdate();
         } catch (java.sql.SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n"+ex.getMessage());
