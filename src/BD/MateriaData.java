@@ -1,128 +1,116 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Barrionuevo Pablo: modifico para que funcione con la SQL de Astor
  */
 package BD;
-
-import Recursos.Materia;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 /**
- *
+ * Clase Materia para usar con conexiones a la tabla materia de la BD
  * @author melid
  */
 public class MateriaData {
+    //Constantes
+    final private String 
+        TABLA = "materia",
+        CAMPOS[] = {"ID_Materia","Nombre","Año","Estado"};
     //Atributos
-    private Connection con;
+    private java.sql.Connection con;
     //Constructores
     public MateriaData (Conexion con){
         this.con = con.getConexion();
     }
     //Metodos
-    public int guardarMateria(Materia ma){
+    public int guardarMateria(Recursos.Materia ma){
         int idnuevo = 0;
-        String sql = "Insert into materia (nombre, anio, activo) Values (?,?,?)";
+        String sql = "INSERT INTO "+ TABLA +" ("+ CAMPOS[1] +", "+ CAMPOS[2] +", "+ CAMPOS[3] +") VALUES (?,?,?);";
+        java.sql.PreparedStatement ps;
+        java.sql.ResultSet rs;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+            ps = con.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ma.getNombreMateria());
             ps.setInt(2, ma.getAnio());
             ps.setBoolean(3, ma.isEstado());
-            
             ps.executeUpdate();
-            
-            ResultSet rs = ps.getGeneratedKeys();
+            rs = ps.getGeneratedKeys();
             if(rs.next()){
                 //ma.setIdMateria(rs.getInt(1));//esto modifica el id en el parametro pero no en la variable que se pasa
                 idnuevo = rs.getInt(1);
             }
             ps.close();
-        
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Conexion");
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
         }
         return idnuevo;
     }
     
-    public List <Materia> obtenerMaterias(){
-        Materia mat;
-        ArrayList <Materia> materias = new ArrayList<>();
-        String sql ="Select * From materia " ;
+    public java.util.List<Recursos.Materia> obtenerMaterias(){
+        Recursos.Materia mat;
+        java.util.ArrayList<Recursos.Materia> materias = new java.util.ArrayList<>();
+        String sql ="SELECT * FROM "+ TABLA +";";
+        java.sql.PreparedStatement ps;
+        java.sql.ResultSet rs;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = ps.executeQuery();
+            ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS);
+            rs = ps.executeQuery();
             while(rs.next()){
-                mat = new Materia();
-                mat.setNombreMateria(rs.getString("nombre"));
-                mat.setIdMateria(rs.getInt("idmateria"));
-                mat.setEstado(rs.getBoolean("activo"));
-                mat.setAnio(rs.getInt("anio"));
-                
+                mat = new Recursos.Materia();
+                mat.setIdMateria(rs.getInt(CAMPOS[0]));             //id
+                mat.setNombreMateria(rs.getString(CAMPOS[1]));      //nombre
+                mat.setAnio(rs.getInt(CAMPOS[2]));                  //anio
+                mat.setEstado(rs.getBoolean(CAMPOS[3]));            //estado
                 materias.add(mat);
-                
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Conexion");
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
         }
         return materias;
     }
     
-    public Materia buscarMateria(int id){
-        Materia mat = new Materia();
-        String sql  = "Select * From materia where idMateria =?";
-        
+    public Recursos.Materia buscarMateria(int id){
+        Recursos.Materia mat = new Recursos.Materia();
+        String sql  = "SELECT * FROM "+ TABLA +" WHERE "+ CAMPOS[0] +"=?;";
+        java.sql.PreparedStatement ps;
+        java.sql.ResultSet rs;
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
-            
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if(rs.next()){
-                mat.setNombreMateria(rs.getString("nombre"));
-                mat.setIdMateria(rs.getInt("idmateria"));
-                mat.setEstado(rs.getBoolean("activo"));
-                mat.setAnio(rs.getInt("anio"));
+                mat.setIdMateria(rs.getInt(CAMPOS[0]));
+                mat.setNombreMateria(rs.getString(CAMPOS[1]));
+                mat.setAnio(rs.getInt(CAMPOS[2]));
+                mat.setEstado(rs.getBoolean(CAMPOS[3]));
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Conexiion");
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
         }
         return mat;
     }
      public void desactivarMateria(int id){
-         String sql = " update meteria set activo=false where idMateria=?";
-         PreparedStatement ps;
+        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[3] +"=0 WHERE "+ CAMPOS[0] +"=?;";
+        java.sql.PreparedStatement ps;
         try {
-            ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-             ps.setInt(1, id);
-             ps.executeUpdate();
-             ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Conexion");
+            ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
         }
      }
      
-     public void actualizarMateria(Materia mat){
-         String sql = "update materia set nombre=?, anio=?, where idMateria=?";
+     public void actualizarMateria(Recursos.Materia mat){
+        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=?, WHERE "+ CAMPOS[1] +"=?;";
+        java.sql.PreparedStatement ps;
         try {
-             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-                 ps.setString(1, mat.getNombreMateria());
-                 ps.setInt(2, mat.getAnio());
-                 ps.setInt(3, mat.getIdMateria());
-                 
-                 ps.executeUpdate();
-             }
-        } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error de Conexion");
+            ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, mat.getNombreMateria());
+            ps.setInt(2, mat.getAnio());
+            ps.setInt(3, mat.getIdMateria());
+            ps.executeUpdate();
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion:\n"+ex.getMessage());
         }
      }
     
