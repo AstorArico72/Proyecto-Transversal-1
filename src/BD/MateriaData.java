@@ -1,5 +1,6 @@
 /*
  * Barrionuevo Pablo: modifico para que funcione con la SQL de Astor
+ * Barrionuevo Pablo: edito actualizar por alguna razon da error de sql
  */
 package BD;
 /**
@@ -100,7 +101,7 @@ public class MateriaData {
      }
      
      public void actualizarMateria(Recursos.Materia mat){
-        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=?, WHERE "+ CAMPOS[0] +"=?;";
+        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=? WHERE "+ CAMPOS[0] +"=?;"; //habia una , de mas
         java.sql.PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS)) {
