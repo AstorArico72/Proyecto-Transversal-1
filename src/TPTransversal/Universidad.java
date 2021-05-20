@@ -31,7 +31,7 @@ public class Universidad {
         
         //Prueba de Alumno nuevo
         Recursos.Alumno nuevo = new Recursos.Alumno();
-        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10000); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
+        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10001); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
         System.out.println(nuevo.toString());
         
         //Prueba de Materia nueva
@@ -71,9 +71,28 @@ public class Universidad {
                 +md.obtenerMaterias().toString());
             */                                                                  //Final de Pruebas de MateriaData
             
-//            /*Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
+            /*Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
+            BD.AlumnoData ad = new BD.AlumnoData(c);
             
-//            */                                                                  //Final de Pruebas de AlumnoData
+            System.out.println("Guardar Alumno");                               //.....Guardar Alumno
+            int idNuevoAlumno = ad.guardarAlumno(nuevo);
+            nuevo.setIdAlumno(idNuevoAlumno);
+            
+            System.out.println("Buscar el Alumno con id: "+idNuevoAlumno);      //.....Buscar Alumno
+            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
+            
+            System.out.println("Actualizar un Alumno");                         //.....Actualizar Alumno
+            nuevo.setNombre("Martin Perez"); nuevo.setCorreo("mp_privado@micorreo.org");
+            ad.actualizarAlumno(nuevo);
+            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
+            
+            System.out.println("Desactivar un Alumno");                         //.....Desactivar Alumno
+            ad.desactivarAlumno(idNuevoAlumno);
+            
+            //.....Mostrar todos los alumnos en la tabla alumno de la BD        //.....Obtener Alumnos
+            System.out.println("Todos los Alumnos:\n"
+                +ad.obtenerAlumnos().toString());
+            */                                                                  //Final de Pruebas de AlumnoData
             
 //            /*Comentar este bloque para realizar las pruebas                    //Pruebas de InscripcionData
             
