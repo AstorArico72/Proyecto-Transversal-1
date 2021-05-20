@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2021 a las 21:39:57
+-- Tiempo de generación: 21-05-2021 a las 01:03:35
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.5
 
@@ -39,6 +39,19 @@ CREATE TABLE `alumno` (
   `Comentarios` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='No creo que necesitemos más datos para ésta tabla.';
 
+--
+-- Volcado de datos para la tabla `alumno`
+--
+
+INSERT INTO `alumno` (`ID_Alumno`, `Nombre`, `Legajo`, `Estado`, `FechaNacimiento`, `Correo`, `Teléfono`, `FechaInscripción`, `Comentarios`) VALUES
+(1, 'Jhon Smith', 10000, 1, '1988-05-14', NULL, NULL, '2021-05-20', 'Prueba'),
+(2, 'Martin Perez', 10001, 0, '1988-07-01', 'mp_privado@micorreo.org', 'No posee', '2021-05-20', 'Sin comentarios'),
+(3, 'Lopez Josefina', 100058, 1, '1888-12-31', NULL, NULL, NULL, NULL),
+(4, 'Orozco Cinthia', 100572, 1, '1598-01-01', NULL, NULL, NULL, NULL),
+(5, 'Fernandez Carlos', 100573, 1, '1599-01-01', NULL, NULL, NULL, NULL),
+(6, 'Funes Marcos', 100532, 1, '1599-01-01', NULL, NULL, NULL, NULL),
+(7, 'Velazquez Roberto', 101573, 1, '1599-01-01', NULL, NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +66,18 @@ CREATE TABLE `inscripcion` (
   `Nota` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `inscripcion`
+--
+
+INSERT INTO `inscripcion` (`ID_Inscripcion`, `ID_Alumno`, `ID_Materia`, `FechaInscripcion`, `Nota`) VALUES
+(1, 1, 1, '2021-05-20', 1),
+(2, 5, 5, '2021-05-20', 7),
+(3, 5, 2, '2021-05-20', 8),
+(4, 5, 2, '2021-05-20', 8),
+(5, 5, 3, '2021-05-20', 8),
+(6, 5, 4, '2021-05-20', 8);
+
 -- --------------------------------------------------------
 
 --
@@ -65,6 +90,18 @@ CREATE TABLE `materia` (
   `Año` tinyint(1) NOT NULL COMMENT 'Ésto podría omitirse si el primer dígito del ID es el año (ie "201" para una materia del segundo año).',
   `Estado` tinyint(1) NOT NULL COMMENT 'Estado de la materia'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Podríamos añadir un campo más para el nombre del profesor.';
+
+--
+-- Volcado de datos para la tabla `materia`
+--
+
+INSERT INTO `materia` (`ID_Materia`, `Nombre`, `Año`, `Estado`) VALUES
+(1, 'Materia de Prueba', 0, 0),
+(2, 'Laboratorio 1', 1, 1),
+(3, 'Laboratorio 2', 2, 1),
+(4, 'Laboratorio 3', 3, 1),
+(5, 'Laboratorio 4', 4, 1),
+(6, 'Laboratorio 5', 5, 1);
 
 --
 -- Índices para tablas volcadas
@@ -81,9 +118,7 @@ ALTER TABLE `alumno`
 -- Indices de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  ADD PRIMARY KEY (`ID_Inscripcion`),
-  ADD UNIQUE KEY `Id_Alumno` (`ID_Alumno`),
-  ADD UNIQUE KEY `Id_Materia` (`ID_Materia`);
+  ADD PRIMARY KEY (`ID_Inscripcion`);
 
 --
 -- Indices de la tabla `materia`
@@ -99,19 +134,19 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `ID_Alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave primaria', AUTO_INCREMENT=5;
+  MODIFY `ID_Alumno` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave primaria', AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  MODIFY `ID_Inscripcion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria';
+  MODIFY `ID_Inscripcion` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clave primaria', AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `ID_Materia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'El ID de la materia, o número de clase.', AUTO_INCREMENT=102;
+  MODIFY `ID_Materia` int(11) NOT NULL AUTO_INCREMENT COMMENT 'El ID de la materia, o número de clase.', AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
