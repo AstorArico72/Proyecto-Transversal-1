@@ -36,7 +36,7 @@ public class Universidad {
         
         //Prueba de Materia nueva
         Recursos.Materia nuevaM = new Recursos.Materia();
-        nuevaM.setNombreMateria("Laboratorio 1");nuevaM.setAnio(1);
+        nuevaM.setNombreMateria("Matemática 1");nuevaM.setAnio(1);
         System.out.println(nuevaM.toString());
         
         //Prueba de Cursada
@@ -50,19 +50,25 @@ public class Universidad {
             //Pruebas de MateriaData
             BD.MateriaData md = new BD.MateriaData(c);
             
-            System.out.println("Guardar una Materia");                          //.....Guardar Materia
+            System.out.println("Guardar Materias");                             //.....Guardar Materia
             int idNuevo = md.guardarMateria(nuevaM);
+            md.guardarMateria(lab2);//esta no la voy a modificar
             nuevaM.setIdMateria(idNuevo);
             
             System.out.println("Buscar la Materia con id: "+idNuevo);           //.....Buscar Materia
             System.out.println(md.buscarMateria(idNuevo).toString());
             
             System.out.println("Actualizar una Materia");                       //.....Actualizar Materia
-            nuevaM.setAnio(2); nuevaM.setNombreMateria("Laboratorio de Programación 2");
+            nuevaM.setAnio(2); nuevaM.setNombreMateria("Matemática 2");
             md.actualizarMateria(nuevaM);
             System.out.println(md.buscarMateria(idNuevo).toString());
             
+            System.out.println("Desactivar una Materia");                       //.....Desactivar Materia
+            md.desactivarMateria(idNuevo);
             
+            //.....Mostrar todas las materias en la tabla materias de la BD
+            System.out.println("Todas las Materias:\n"
+                +md.obtenerMaterias().toString());
         }else{
             //no se establecio la conexion
         }

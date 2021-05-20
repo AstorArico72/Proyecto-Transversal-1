@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Barrionuevo Pablo: edito para usar el SQL de Astor
  */
 package Recursos;
 
@@ -11,15 +9,23 @@ package Recursos;
  */
 public class Materia {
     
+    //Constante Default
+    final private String DEF[] = {"0","Nueva Materia","1","1"};
+    //Atributos
     private int idMateria;
     private String nombreMateria;
     private int anio;
     private boolean estado;
 
     public Materia() {
+        idMateria = Integer.parseInt(DEF[0]);
+        nombreMateria = DEF[1];
+        anio = Integer.parseInt(DEF[2]);
+        estado = Boolean.parseBoolean(DEF[3]);
     }
 
     public Materia(String nombreMateria, int anio, boolean estado) {
+        idMateria = Integer.parseInt(DEF[0]);
         this.nombreMateria = nombreMateria;
         this.anio = anio;
         this.estado = estado;
@@ -66,10 +72,8 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "nombreMateria=" + nombreMateria + ", anio=" + anio + '}';
+        return "Materia{" + "idMateria=" + idMateria + ", nombreMateria=" + nombreMateria + ", anio=" + anio + ", estado=" + estado + '}';
     }
-    
-    
-    
+
     
 }
