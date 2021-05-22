@@ -41,10 +41,11 @@ public class InscripcionData {
     public java.util.List<Recursos.Materia> obtenerMateriasNoCursadas(int idAlumno) {
         java.util.List<Recursos.Materia> matNoCur = new java.util.ArrayList<>();
         Recursos.Materia mat;
-        //String sql = "SELECT * FROM materia where idMateria not in (Select materia.idMateria from materia"+"cursada where materia.idmateria =cursada.idMateria And cursada.idalumno=?";
-        String sql = "SELECT " + TMATERIA + ".* FROM " + TMATERIA + ", " + TINSCRIPCION + " "
-                + "WHERE " + TMATERIA + "." + CAMPOSMATERIA[0] + " <> " + TINSCRIPCION + "." + CAMPOSINSCRIPCION[2] + " AND " //id materias son distintos
-                + TINSCRIPCION + "." + CAMPOSINSCRIPCION[1] + " = ?;";
+        String sql = "SELECT * FROM materia where ID_Materia not in (Select materia.ID_Materia from materia, "
+                +"inscripcion where materia.ID_Materia = inscripcion.ID_Materia And inscripcion.ID_Alumno=?);";
+//        String sql = "SELECT " + TMATERIA + ".* FROM " + TMATERIA + ", " + TINSCRIPCION + " "
+//                + "WHERE NOT" + TMATERIA + "." + CAMPOSMATERIA[0] + " = " + TINSCRIPCION + "." + CAMPOSINSCRIPCION[2] + " AND " //id materias son distintos
+//                + TINSCRIPCION + "." + CAMPOSINSCRIPCION[1] + " = ?;";
         java.sql.PreparedStatement ps;
         java.sql.ResultSet rs;
         try {
@@ -219,27 +220,35 @@ public class InscripcionData {
      *
      * @param id
      */
-    public void desinscribirAlumno(int id) {
-        String sql = "DELETE FROM " + TINSCRIPCION + " WHERE " + CAMPOSINSCRIPCION[0] + " = ?;";
+    public void desinscribirAlumno(int idAlumno, int idMateria) {
+        String sql = "DELETE FROM " + TINSCRIPCION + " WHERE " + CAMPOSINSCRIPCION[1] + " = ? AND "
+                + CAMPOSINSCRIPCION[2] + " = ?;";
         java.sql.PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
+            ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+            int rs = ps.executeUpdate();
+            System.out.println(rs);
+            if(rs > 0){
+                System.out.println("El alumno ha sido desinscripto con éxito");
+            }else{
+                System.out.println("El alumno no está en la materia");
+            }
         } catch (java.sql.SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n" + ex.getMessage());
         }
     }
-
-    public void desinscribirAlumno(Recursos.Inscripcion inscripcion) {
-        String sql = "DELETE FROM " + TINSCRIPCION + " WHERE " + CAMPOSINSCRIPCION[0] + " = ?;";
-        java.sql.PreparedStatement ps;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, inscripcion.getIdInscripcion());
-            ps.executeUpdate();
-        } catch (java.sql.SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n" + ex.getMessage());
-        }
-    }
+//
+//    public void desinscribirAlumno(Recursos.Inscripcion inscripcion) {
+//        String sql = "DELETE FROM " + TINSCRIPCION + " WHERE " + CAMPOSINSCRIPCION[0] + " = ?;";
+//        java.sql.PreparedStatement ps;
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, inscripcion.getIdInscripcion());
+//            ps.executeUpdate();
+//        } catch (java.sql.SQLException ex) {
+//            javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n" + ex.getMessage());
+//        }
+//    }
 }
