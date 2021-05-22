@@ -3,6 +3,14 @@
  */
 package BD;
 
+import Recursos.Alumno;
+import Recursos.Inscripcion;
+import Recursos.Materia;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase Inscripcion para usar con conexiones a la tabla materia de la BD
  *
@@ -42,7 +50,7 @@ public class InscripcionData {
         java.util.List<Recursos.Materia> matNoCur = new java.util.ArrayList<>();
         Recursos.Materia mat;
         String sql = "SELECT * FROM materia where ID_Materia not in (Select materia.ID_Materia from materia, "
-                +"inscripcion where materia.ID_Materia = inscripcion.ID_Materia And inscripcion.ID_Alumno=?);";
+                + "inscripcion where materia.ID_Materia = inscripcion.ID_Materia And inscripcion.ID_Alumno=?);";
 //        String sql = "SELECT " + TMATERIA + ".* FROM " + TMATERIA + ", " + TINSCRIPCION + " "
 //                + "WHERE NOT" + TMATERIA + "." + CAMPOSMATERIA[0] + " = " + TINSCRIPCION + "." + CAMPOSINSCRIPCION[2] + " AND " //id materias son distintos
 //                + TINSCRIPCION + "." + CAMPOSINSCRIPCION[1] + " = ?;";
@@ -171,7 +179,7 @@ public class InscripcionData {
                 if (rs.next()) {
                     idInscripcion = rs.getInt(1);
                 }
-            }else{
+            } else {
                 System.out.println("El alumno ya esta Inscripto en esa materia.");
             }
 
@@ -230,25 +238,62 @@ public class InscripcionData {
             ps.setInt(2, idMateria);
             int rs = ps.executeUpdate();
             System.out.println(rs);
-            if(rs > 0){
+            if (rs > 0) {
                 System.out.println("El alumno ha sido desinscripto con éxito");
-            }else{
+            } else {
                 System.out.println("El alumno no está en la materia");
             }
+            ps.close();
         } catch (java.sql.SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n" + ex.getMessage());
         }
+
     }
-//
-//    public void desinscribirAlumno(Recursos.Inscripcion inscripcion) {
-//        String sql = "DELETE FROM " + TINSCRIPCION + " WHERE " + CAMPOSINSCRIPCION[0] + " = ?;";
-//        java.sql.PreparedStatement ps;
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, inscripcion.getIdInscripcion());
-//            ps.executeUpdate();
-//        } catch (java.sql.SQLException ex) {
-//            javax.swing.JOptionPane.showMessageDialog(null, "Error al des-inscribir un alumno:\n" + ex.getMessage());
-//        }
-//    }
+
+    public void actualizarNota(int idAlumno, int idMateria, double nota) {
+        String sql = "UPDATE inscripcion SET Nota=? WHERE ID_Alumno=? AND ID_Materia=?";
+        java.sql.PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDouble(1, nota);
+            ps.setInt(2, idAlumno);
+            ps.setInt(3, idMateria);
+            int rs = ps.executeUpdate();
+            if (rs > 0) {
+                System.out.println("La nota se ha actualizado con exito");
+            } else {
+                System.out.println("No coincide el ID Alumno con el ID Materia");
+            }
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al actualizar la nota: \n" + ex.getMessage());
+        }
+
+    }
+
+    public List<Inscripcion> obtenerInscripciones() {
+        ArrayList<Inscripcion> i = new ArrayList<>();
+        String sql = "SELECT * FROM inscripcion";
+        try {
+            java.sql.PreparedStatement ps;
+            ps = con.prepareStatement(sql);
+            java.sql.ResultSet rs;
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Inscripcion aux = new Inscripcion(new Alumno(), new Materia());
+                aux.setIdInscripcion(rs.getInt(1));
+                aux.getAlumno().setIdAlumno(rs.getInt(2));
+                aux.getMateria().setIdMateria(rs.getInt(3));
+                aux.setFechaInscripcion(java.time.LocalDate.parse(rs.getString(4)));
+                aux.setNota(rs.getDouble(5));
+                i.add(aux);
+            }
+            ps.close();
+        }catch(java.sql.SQLException ex){
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al obtener Inscripciones \n" + ex.getMessage());
+        }
+
+        return i;
+    }
+
 }

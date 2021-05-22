@@ -32,6 +32,11 @@ public class Inscripcion {
         this.fechInsc = fechInsc;
         this.nota = nota;
     }
+    
+    public Inscripcion(Alumno alumno, Materia materia){
+        this.alumno=alumno;
+        this.materia=materia;
+    }
 
     public Inscripcion(int idCursada, Alumno alumno, Materia materia, java.time.LocalDate fechInsc, double nota) {
         this.idInscripcion = idCursada;

@@ -116,11 +116,16 @@ public class Universidad {
             System.out.println(idata.obtenerMateriasNoCursadas(1).toString());      //listar materias no cursadas
             
             //delete
-            System.out.println("Desinscribir Alumno"); 
-            idata.desinscribirAlumno(1, 1);                                             //desincribe alumno
-            //nota
+//            System.out.println("Desinscribir Alumno"); 
+//            idata.desinscribirAlumno(1, 1);                                             //desincribe alumno
+                //nota
+                System.out.println("Actualizo la nota: ");
+            idata.actualizarNota(1, 1, 10);                                                                            //Actualiza la nota
+            System.out.println("");
             
-            //mostrar todo
+            //mostrar todo                                                                //Muestra Inscripciones
+            System.out.println("Las inscripciones son: ");
+            System.out.println(idata.obtenerInscripciones().toString());
             
         }else{
             System.out.println("Error en conexion...");
