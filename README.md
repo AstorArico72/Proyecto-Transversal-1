@@ -1,4 +1,5 @@
-Astor, estamos hablando con los chicos en zoom si podrias poner en publico el repositorio para no tener problemas de visibilidad con los profesores, mas info en discuciones. :)
+Astor, estamos hablando con los chicos en zoom si podrias poner en publico el repositorio para no tener problemas de visibilidad con los profesores, mas info en discuciones. :)]
+EDIT1: Ya esta listo el trabajo para subir.
 
 
 # Proyecto Transversal #1
