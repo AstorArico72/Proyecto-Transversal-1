@@ -1,3 +1,5 @@
+**ENTREGADO**
+
 # Proyecto Transversal #1
 **Actualización 5/23 12:33 PM: Hecho público el repositorio Git. Cambiando descripción.**
 Gianfranco: Astor, estamos hablando con los chicos en zoom si podrias poner en publico el repositorio para no tener problemas de visibilidad con los profesores, mas info en discuciones. :)]
