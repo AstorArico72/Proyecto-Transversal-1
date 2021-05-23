@@ -1,5 +1,5 @@
-# Proyecto Transversal #1**
-Actualización 5/23 12:32 PM: Hecho público el repositorio Git. Cambiando descripción.**
+# Proyecto Transversal #1
+**Actualización 5/23 12:33 PM: Hecho público el repositorio Git. Cambiando descripción.**
 Gianfranco: Astor, estamos hablando con los chicos en zoom si podrias poner en publico el repositorio para no tener problemas de visibilidad con los profesores, mas info en discuciones. :)]
 Gianfranco: Ya esta listo el trabajo para subir.
 Gianfranco: Ya creamos un repositorio con los chicos para el trabajo final. https://github.com/Gianibruno/Trabajo-Final-Laboratorio-Programacion-I
