@@ -88,11 +88,12 @@ public class AlumnoData {
     }
     
     public Recursos.Alumno buscarAlumno(int id){
-        Recursos.Alumno alumno = new Recursos.Alumno();
+        Recursos.Alumno alumno = null;
         String sql  = "SELECT * FROM "+ TABLA +" WHERE "+ CAMPOS[0] +"=?;";
         java.sql.PreparedStatement ps;
         java.sql.ResultSet rs;
         try {
+            alumno= new Recursos.Alumno();
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
@@ -104,7 +105,11 @@ public class AlumnoData {
                 alumno.setFechaNacimiento(java.time.LocalDate.parse(rs.getString(CAMPOS[4])));
                 alumno.setCorreo(rs.getString(CAMPOS[5]));
                 alumno.setTelefono(rs.getString(CAMPOS[6]));
+                try{
                 alumno.setFechaInscripcion(java.time.LocalDate.parse(rs.getString(CAMPOS[7])));
+                }catch(java.sql.SQLException ex){
+                    javax.swing.JOptionPane.showMessageDialog(null, "Advertencia, el alumno no tiene fecha de Inscripcion:\n"+ex.getMessage());
+                }
                 alumno.setComentarios(rs.getString(CAMPOS[8]));
             }
             ps.close();

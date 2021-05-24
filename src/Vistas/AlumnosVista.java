@@ -10,6 +10,7 @@ import Recursos.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -231,6 +232,9 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        jtNombre.setText("");
+        jtFechNac.setText("");
+        chActivo.setEnabled(false);
         boolean aux;
         int id = Integer.parseInt(jtId.getText());
         Alumno alumno = alumnoData.buscarAlumno(id);
@@ -241,6 +245,8 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
             aux = alumno.getEstado()==1;
             chActivo.setSelected(aux);
             
+        }else{
+           JOptionPane.showMessageDialog(this,"El alumno no se encontró en la base de datos");
         }
 
         // TODO add your handling code here:

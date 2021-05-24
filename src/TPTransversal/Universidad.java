@@ -33,21 +33,21 @@ public class Universidad {
         //nuevaMateria (lab2); -> lo hacemos con conexion establecida
 //=======<<<<<<< Upstream, based on origin/master
         
-        //Prueba de Alumno nuevo
-        Recursos.Alumno nuevo = new Recursos.Alumno();
-        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10001); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
-        System.out.println(nuevo.toString());
-        
-        //Prueba de Materia nueva
-        Recursos.Materia nuevaM = new Recursos.Materia();
-        nuevaM.setNombreMateria("Matemática 1");
-        nuevaM.setAnio(1);
-        nuevaM.setEstado(true);
-        System.out.println(nuevaM.toString());
-        
-        //Prueba de Inscripcion
-        Recursos.Inscripcion cursada = new Recursos.Inscripcion(nuevo, nuevaM, java.time.LocalDate.now(), 8);
-        System.out.println(cursada.toString());
+//        //Prueba de Alumno nuevo
+//        Recursos.Alumno nuevo = new Recursos.Alumno();
+//        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10001); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
+//        System.out.println(nuevo.toString());
+//        
+//        //Prueba de Materia nueva
+//        Recursos.Materia nuevaM = new Recursos.Materia();
+//        nuevaM.setNombreMateria("Matemática 1");
+//        nuevaM.setAnio(1);
+//        nuevaM.setEstado(true);
+//        System.out.println(nuevaM.toString());
+//        
+//        //Prueba de Inscripcion
+//        Recursos.Inscripcion cursada = new Recursos.Inscripcion(nuevo, nuevaM, java.time.LocalDate.now(), 8);
+//        System.out.println(cursada.toString());
         
         
         //Prueba de Conexion
@@ -77,28 +77,28 @@ public class Universidad {
                 +md.obtenerMaterias().toString());
                                                              //Final de Pruebas de MateriaData
             
-            /*Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
+//            Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
             BD.AlumnoData ad = new BD.AlumnoData(c);
             
-            System.out.println("Guardar Alumno");                               //.....Guardar Alumno
-            int idNuevoAlumno = ad.guardarAlumno(nuevo);
-            nuevo.setIdAlumno(idNuevoAlumno);
+//            System.out.println("Guardar Alumno");                               //.....Guardar Alumno
+//            int idNuevoAlumno = ad.guardarAlumno(nuevo);
+//            nuevo.setIdAlumno(idNuevoAlumno);
             
-            System.out.println("Buscar el Alumno con id: "+idNuevoAlumno);      //.....Buscar Alumno
-            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
+            System.out.println("Buscar el Alumno con id:(PRUEBA) ");      //.....Buscar Alumno
+            System.out.println(ad.buscarAlumno(3).toString());
             
-            System.out.println("Actualizar un Alumno");                         //.....Actualizar Alumno
-            nuevo.setNombre("Martin Perez"); nuevo.setCorreo("mp_privado@micorreo.org");
-            ad.actualizarAlumno(nuevo);
-            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
+//            System.out.println("Actualizar un Alumno");                         //.....Actualizar Alumno
+//            nuevo.setNombre("Martin Perez"); nuevo.setCorreo("mp_privado@micorreo.org");
+//            ad.actualizarAlumno(nuevo);
+//            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
             
-            System.out.println("Desactivar un Alumno");                         //.....Desactivar Alumno
-            ad.desactivarAlumno(idNuevoAlumno);
+//            System.out.println("Desactivar un Alumno");                         //.....Desactivar Alumno
+//            ad.desactivarAlumno(idNuevoAlumno);
             
             //.....Mostrar todos los alumnos en la tabla alumno de la BD        //.....Obtener Alumnos
-            System.out.println("Todos los Alumnos:\n"
-                +ad.obtenerAlumnos().toString());
-            */                                                                  //Final de Pruebas de AlumnoData
+//            System.out.println("Todos los Alumnos:\n"
+//                +ad.obtenerAlumnos().toString());
+                                                                       //Final de Pruebas de AlumnoData
             
                                                                                 //Prueba InscripcionData
             InscripcionData idata=new InscripcionData(c);
@@ -106,32 +106,32 @@ public class Universidad {
 //            System.out.println("Guardar Inscripcion"); 
 //            idata.guardarInscripcion(cursada);                                      //guardar alumno
             
-            System.out.println("Los alumnos en la materia con id 1 son:");       //lista alumnos
-            System.out.println(idata.listarAlumnos(1).toString());
-            
-            System.out.println("Las materias del alumno con id 1 son:");           //listar materias
-            System.out.println(idata.listarMaterias(1).toString());
-            
-            System.out.println ("Materias no cursadas x el alumno 1");
-            System.out.println(idata.obtenerMateriasNoCursadas(1).toString());      //listar materias no cursadas
+//            System.out.println("Los alumnos en la materia con id 1 son:");       //lista alumnos
+//            System.out.println(idata.listarAlumnos(1).toString());
+//            
+//            System.out.println("Las materias del alumno con id 1 son:");           //listar materias
+//            System.out.println(idata.listarMaterias(1).toString());
+//            
+//            System.out.println ("Materias no cursadas x el alumno 1");
+//            System.out.println(idata.obtenerMateriasNoCursadas(1).toString());      //listar materias no cursadas
             
             //delete
 //            System.out.println("Desinscribir Alumno"); 
 //            idata.desinscribirAlumno(1, 1);                                             //desincribe alumno
                 //nota
-                System.out.println("Actualizo la nota: ");
-            idata.actualizarNota(1, 1, 10);                                                                            //Actualiza la nota
-            System.out.println("");
-            
-            //mostrar todo                                                                //Muestra Inscripciones
-            System.out.println("Las inscripciones son: ");
-            System.out.println(idata.obtenerInscripciones().toString());
+//                System.out.println("Actualizo la nota: ");
+//            idata.actualizarNota(1, 1, 10);                                                                            //Actualiza la nota
+//            System.out.println("");
+//            
+//            //mostrar todo                                                                //Muestra Inscripciones
+//            System.out.println("Las inscripciones son: ");
+//            System.out.println(idata.obtenerInscripciones().toString());
             
         }else{
             System.out.println("Error en conexion...");
         }
         //Vistas de la interfaz de usuario
-        Vistas.PrincipalVistas.iniciar();
+        //Vistas.PrincipalVistas.iniciar();
 
     }
 }
