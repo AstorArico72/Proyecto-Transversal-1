@@ -1,3 +1,7 @@
+VISTAS:
+![image](https://user-images.githubusercontent.com/82464280/119413702-88d1e100-bcc4-11eb-9cd1-ddaa8d797f4c.png)
+La vista que quede libre lo hacemos entre todos.
+
 **ENTREGADO**
 
 # Proyecto Transversal #1
