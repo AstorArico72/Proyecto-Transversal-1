@@ -105,10 +105,10 @@ public class AlumnoData {
                 alumno.setFechaNacimiento(java.time.LocalDate.parse(rs.getString(CAMPOS[4])));
                 alumno.setCorreo(rs.getString(CAMPOS[5]));
                 alumno.setTelefono(rs.getString(CAMPOS[6]));
-                try{
+                if(rs.getString(CAMPOS[7])!=null)
                 alumno.setFechaInscripcion(java.time.LocalDate.parse(rs.getString(CAMPOS[7])));
-                }catch(java.sql.SQLException ex){
-                    javax.swing.JOptionPane.showMessageDialog(null, "Advertencia, el alumno no tiene fecha de Inscripcion:\n"+ex.getMessage());
+                else{
+                    alumno.setFechaInscripcion(null);
                 }
                 alumno.setComentarios(rs.getString(CAMPOS[8]));
             }

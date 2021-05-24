@@ -84,8 +84,8 @@ public class Universidad {
 //            int idNuevoAlumno = ad.guardarAlumno(nuevo);
 //            nuevo.setIdAlumno(idNuevoAlumno);
             
-            System.out.println("Buscar el Alumno con id:(PRUEBA) ");      //.....Buscar Alumno
-            System.out.println(ad.buscarAlumno(3).toString());
+//            System.out.println("Buscar el Alumno con id:(PRUEBA) ");      //.....Buscar Alumno
+//            System.out.println(ad.buscarAlumno(3).toString());
             
 //            System.out.println("Actualizar un Alumno");                         //.....Actualizar Alumno
 //            nuevo.setNombre("Martin Perez"); nuevo.setCorreo("mp_privado@micorreo.org");
@@ -131,7 +131,7 @@ public class Universidad {
             System.out.println("Error en conexion...");
         }
         //Vistas de la interfaz de usuario
-        //Vistas.PrincipalVistas.iniciar();
+        Vistas.PrincipalVistas.iniciar();
 
     }
 }
