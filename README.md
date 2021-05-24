@@ -1,3 +1,5 @@
+*IMPORTANTE!:* Astor, con los chicos nos pusimos de acuerdo en no hacer ningun push hasta tener todos cada uno su parte lista para no tener problemas a la hora de modificar los archivos del Repositorio. Por favor, no hagas ningun push desde tu IDE hasta que todos estemos con su parte terminada, nos ponemos de acuerdo mas adelante! 
+
 VISTAS:
 ![image](https://user-images.githubusercontent.com/82464280/119413702-88d1e100-bcc4-11eb-9cd1-ddaa8d797f4c.png)
 La vista que quede libre lo hacemos entre todos.
