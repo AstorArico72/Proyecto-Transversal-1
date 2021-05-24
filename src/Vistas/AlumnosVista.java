@@ -5,9 +5,8 @@
  */
 package Vistas;
 
-import Modelo.Alumno;
-import Modelo.AlumnoData;
-import Modelo.Conexion;
+import BD.*;
+import Recursos.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,12 +18,10 @@ import java.time.format.DateTimeFormatter;
 public class AlumnosVista extends javax.swing.JInternalFrame {
 
     private final AlumnoData alumnoData;
-    private final Conexion conexion;
-    
-    public AlumnosVista() throws ClassNotFoundException, SQLException {
+
+    public AlumnosVista() {
         initComponents();
-        conexion = new Conexion ("jdbc:mysql://localhost/universidad.g1", "root", "");
-        alumnoData = new AlumnoData(conexion);
+        alumnoData = new AlumnoData(TPTransversal.Universidad.c);
     }
 
     /**
@@ -182,49 +179,43 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
 
-      if (jtId.getText() != null){
-      String nombre = jtNombre.getName();
-      LocalDate fechNac=LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-      boolean estado = chActivo.isEnabled();
-     
-      Alumno alumno = new Alumno (nombre, fechNac,estado);
-      alumnoData.actualizarAlumno(alumno);
-      
+        if (jtId.getText() != null) {
+            String nombre = jtNombre.getName();
+            LocalDate fechNac = LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            int estado;
+            if (chActivo.isEnabled()) {
+                estado = 1;
+            } else {
+                estado = 0;
+            }
 
+            Alumno alumno = new Alumno(nombre, fechNac, estado);
+            alumnoData.actualizarAlumno(alumno);
 
-
-
-
-
-      }
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-      String nombre = jtNombre.getName();
-      LocalDate fechNac=LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-      boolean estado = chActivo.isEnabled();
-     
-      Alumno alumno = new Alumno (nombre, fechNac,estado);
-      alumnoData.guardarAlumno(alumno);
-      jtId.setText(alumno.getIdAlumno()+"");
+        String nombre = jtNombre.getName();
+        LocalDate fechNac = LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        int estado;
+        if (chActivo.isEnabled()) {
+            estado = 1;
+        } else {
+            estado = 0;
+        }
 
-
-
-
-
-
+        Alumno alumno = new Alumno(nombre, fechNac, estado);
+        alumnoData.guardarAlumno(alumno);
+        jtId.setText(alumno.getIdAlumno() + "");
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-          
+
         int id = Integer.parseInt(jtId.getText());
-        alumnoData.borrarAlumno(id);
-
-
-
-
+        alumnoData.desactivarAlumno(id);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -236,28 +227,21 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
         jtFechNac.setText("");
         chActivo.setEnabled(false);
 
-
-
-
-
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
-         int id = Integer.parseInt(jtId.getText());
-         Alumno alumno = alumnoData.buscarAlumno(id);
-         if (alumno != null){
-             jtId.setText(alumno.getIdAlumno()+"");
-             jtNombre.setText(alumno.getNombre()+"");
-             jtFechNac.setText(alumno.getFechNac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-             chActivo.setSelected(alumno.isEstado());
-         }
-
-
-
-
-
+        boolean aux;
+        int id = Integer.parseInt(jtId.getText());
+        Alumno alumno = alumnoData.buscarAlumno(id);
+        if (alumno != null) {
+            jtId.setText(alumno.getIdAlumno() + "");
+            jtNombre.setText(alumno.getNombre() + "");
+            jtFechNac.setText(alumno.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            aux = alumno.getEstado()==1;
+            chActivo.setSelected(aux);
+            
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed

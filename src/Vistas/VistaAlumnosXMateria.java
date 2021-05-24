@@ -5,13 +5,8 @@
  */
 package Vistas;
 
-import Modelo.Alumno;
-import Modelo.AlumnoData;
-import Modelo.Conexion;
-import Modelo.Cursada;
-import Modelo.CursadaData;
-import Modelo.Materia;
-import Modelo.MateriaData;
+import Recursos.*;
+import BD.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -24,45 +19,32 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
 
-    private Conexion conexion;
     private DefaultTableModel modelo;
-    private ArrayList <Cursada> listaCursada;
-    private ArrayList <Materia> listaMaterias;
-    private ArrayList <Alumno> listaAlumnos;
-    private CursadaData cursadaData;
+    private ArrayList<Inscripcion> listaCursada;
+    private ArrayList<Materia> listaMaterias;
+    private ArrayList<Alumno> listaAlumnos;
+    private InscripcionData cursadaData;
     private MateriaData materiaData;
     private AlumnoData alumnoData;
-    
-    
-    
-    public VistaAlumnosXMateria() throws SQLException {
+
+    public VistaAlumnosXMateria() {
         initComponents();
-        
-        try {
-            conexion = new Conexion ("jdbc:mysql://localhost/universidad.g1", "root", "");
-            modelo = new DefaultTableModel();
-            
-            cursadaData = new CursadaData(conexion);
-            listaCursada=(ArrayList)cursadaData.obtenerCursada();
-            
-            materiaData = new MateriaData(conexion);
-            listaMaterias = (ArrayList)materiaData.obtenerMaterias();
-            
-            alumnoData = new AlumnoData (conexion);
-            listaAlumnos=(ArrayList)alumnoData.obtenerAlumnos();
-            
-            cargarMaterias();
-            armaCabeceraTabla();
-            cargarDatos();
-            
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VistaAlumnosXMateria.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-        
+
+        modelo = new DefaultTableModel();
+
+        cursadaData = new InscripcionData(TPTransversal.Universidad.c);
+        listaCursada = (ArrayList) cursadaData.obtenerInscripciones();
+
+        materiaData = new MateriaData(TPTransversal.Universidad.c);
+        listaMaterias = (ArrayList) materiaData.obtenerMaterias();
+
+        alumnoData = new AlumnoData(TPTransversal.Universidad.c);
+        listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos();
+
+        cargarMaterias();
+        armaCabeceraTabla();
+        cargarDatos();
+
     }
 
     /**
@@ -140,64 +122,56 @@ public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void cargarMaterias(){
-        
-      for (Materia item:listaMaterias){ 
-          cbMaterias.addItem(item);
-        
-        
+    public void cargarMaterias() {
+
+        for (Materia item : listaMaterias) {
+            cbMaterias.addItem(item);
+
+        }
     }
-    } 
-    private void armaCabeceraTabla(){
-        
-        ArrayList <Object> columns = new  ArrayList <Object> ();
+
+    private void armaCabeceraTabla() {
+
+        ArrayList<Object> columns = new ArrayList<Object>();
         columns.add("ID");
         columns.add("MATERIA");
         columns.add("NOTA");
-        
-        for(Object it:columns){
-        
-        modelo.addColumn(it);
+
+        for (Object it : columns) {
+
+            modelo.addColumn(it);
         }
-        
+
         tAlumnos.setModel(modelo);
-        
-       }
-    
-    public void borrarFilasTabla(){
-        
-        int a = modelo.getRowCount()-1;
-        for(int i=a; i>=0; i--){
-            
-        modelo.removeRow(i);
-        
+
+    }
+
+    public void borrarFilasTabla() {
+
+        int a = modelo.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+
+            modelo.removeRow(i);
+
         }
     }
-    
-    
-    public void cargarDatos(){
-     
+
+    public void cargarDatos() {
+
         borrarFilasTabla();
-        
-        Materia mat = (Materia)cbMaterias.getSelectedItem();
-        for (Cursada m:listaCursada){
-       if (m.getMateria().getIdMateria()== mat.getIdMateria()){
-           
-           modelo.addRow(new Object []{m.getAlumno().getIdAlumno(),m.getAlumno().getNombre(),m.getNota()});
-           
-           
-           
-       }
-       }
+
+        Materia mat = (Materia) cbMaterias.getSelectedItem();
+        for (Inscripcion m : listaCursada) {
+            if (m.getMateria().getIdMateria() == mat.getIdMateria()) {
+
+                modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(), m.getAlumno().getNombre(), m.getNota()});
+
+            }
+        }
     }
     private void cbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMateriasActionPerformed
 
-      cargarDatos();
-
-
-
-
-
+        cargarDatos();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMateriasActionPerformed

@@ -3,15 +3,18 @@
  */
 package Recursos;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author melid
  */
 public class Alumno {
+
     //..........................................................................Constantes
     //Constante con todos los valores default no requeridos
-    private final String[] DEFAULT = {"1","No posee","No posee",java.time.LocalDate.now().toString(),"Sin comentarios"};
-    
+    private final String[] DEFAULT = {"1", "No posee", "No posee", java.time.LocalDate.now().toString(), "Sin comentarios"};
+
     //..........................................................................Atributos
     private int idAlumno;                       //id,                                       requerido (NULL) autoincremental
     private String nombre;                      //nombre y apellido o apellido y nombre,    requerido
@@ -22,7 +25,7 @@ public class Alumno {
     private String tel;                         //telefono de contacto                      no req                                      DEFAULT[2]
     private java.time.LocalDate fechIns;        //fecha idem formato                        no requerido fecha actual para inscribir    DEFAULT[3]
     private String comentarios;                 //comentarios                               no req                                      DEFAULT[4]
-    
+
     //..........................................................................Constructores
     /**
      * Alumno con datos default
@@ -36,12 +39,14 @@ public class Alumno {
         //datos no requeridos
         completarDefault();
     }
+
     /**
      * Alumno con solamente datos requeridos
+     *
      * @param idAlumno
      * @param nombre
      * @param legajo
-     * @param fechNac 
+     * @param fechNac
      */
     public Alumno(int idAlumno, String nombre, int legajo, java.time.LocalDate fechNac) {
         //datos requeridos
@@ -52,8 +57,16 @@ public class Alumno {
         //datos no requeridos
         completarDefault();
     }
+
+    public Alumno(String nombre, LocalDate fechNac, int estado) {
+        this.nombre = nombre;
+        this.estado = estado;
+        this.fechNac = fechNac;
+    }
+
     /**
      * Alumno con todos los datos
+     *
      * @param idAlumno
      * @param nombre
      * @param legajo
@@ -62,11 +75,11 @@ public class Alumno {
      * @param correo
      * @param tel
      * @param fechIns
-     * @param comentarios 
+     * @param comentarios
      */
     public Alumno(
-            int idAlumno, String nombre, int legajo, int estado, 
-            java.time.LocalDate fechNac, String correo, String tel, 
+            int idAlumno, String nombre, int legajo, int estado,
+            java.time.LocalDate fechNac, String correo, String tel,
             java.time.LocalDate fechIns, String comentarios) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;
@@ -115,7 +128,7 @@ public class Alumno {
     public String getComentarios() {
         return comentarios;
     }
-    
+
     //..........................................................................Setters de todos los atributos
     public void setIdAlumno(int idAlumno) {
         this.idAlumno = idAlumno;
@@ -148,26 +161,24 @@ public class Alumno {
     public void setFechaInscripcion(java.time.LocalDate fechIns) {
         this.fechIns = fechIns;
     }
-    
-    public void setComentarios(String comentarios) {    
+
+    public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
 
     @Override
     public String toString() {
-        return "Alumno{" 
-                + "idAlumno=" + idAlumno 
-                + ", nombre=" + nombre 
-                + ", legajo=" + legajo 
-                + ", estado=" + estado 
-                + ", fecha de Nacimiento=" + fechNac 
-                + ", correo=" + correo 
-                + ", telefono=" + tel 
-                + ", fecha de Inscripcion=" + fechIns 
+        return "Alumno{"
+                + "idAlumno=" + idAlumno
+                + ", nombre=" + nombre
+                + ", legajo=" + legajo
+                + ", estado=" + estado
+                + ", fecha de Nacimiento=" + fechNac
+                + ", correo=" + correo
+                + ", telefono=" + tel
+                + ", fecha de Inscripcion=" + fechIns
                 + ", comentarios=" + comentarios + '}';
     }
-    
-    
 
     //..........................................................................Metodos Privados
     /**
@@ -180,5 +191,5 @@ public class Alumno {
         fechIns = java.time.LocalDate.parse(DEFAULT[3]);
         comentarios = DEFAULT[4];
     }
-    
+
 }

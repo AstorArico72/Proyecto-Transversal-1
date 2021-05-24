@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 //Todos ésos imports están en uso.
 */
 public class Universidad {
-
+    public static BD.Conexion c = new BD.Conexion();
     /**
      * Metodo main
      * @param args
@@ -51,7 +51,7 @@ public class Universidad {
         
         
         //Prueba de Conexion
-        BD.Conexion c = new BD.Conexion();
+        
         if(c.getConexion() != null){
             //Comentar este bloque para realizar las pruebas                    //Pruebas de MateriaData
             BD.MateriaData md = new BD.MateriaData(c);
