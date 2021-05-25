@@ -5,11 +5,6 @@
  */
 package Vistas;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import BD.*;
-import Recursos.*;
-
 /**
  *
  * @author melid
@@ -20,8 +15,9 @@ public class PrincipalVistas extends javax.swing.JFrame {
      * Creates new form PrincipalVistas
      */
     public PrincipalVistas() {
-
+        System.out.println("INICIANDO VISTA PRINCIPAL");
         initComponents();
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -36,6 +32,8 @@ public class PrincipalVistas extends javax.swing.JFrame {
         Escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -63,6 +61,15 @@ public class PrincipalVistas extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Archivo");
+
+        jMenuItem8.setText("Probar Conexión");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+        jMenu1.add(jSeparator1);
 
         jMenuItem1.setText("Salir");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -159,35 +166,38 @@ public class PrincipalVistas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        System.out.println("ABRIR FORMULARIO DE INSCRIPCION");
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
+        System.out.println("ABRIR FORMULARIO DE ALUMNOS");
         Escritorio.removeAll();
         Escritorio.repaint();
         AlumnosVista av = new AlumnosVista();
         av.setVisible(true);
         Escritorio.add(av);
         Escritorio.moveToFront(av);
-
-
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-        System.exit(0);
-
-        // TODO add your handling code here:
+        System.out.println("CERRAR SISTEMA?");
+        int mensaje = javax.swing.JOptionPane.showConfirmDialog(this, 
+                "Salir?", 
+                "",
+                javax.swing.JOptionPane.OK_CANCEL_OPTION);
+        if(mensaje == 0){
+            System.out.println("SI");
+            System.exit(mensaje);
+        }else System.out.println("NO");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
-// TODO add your handling code here:
+        System.out.println("ABRIR MANIPULACION DE NOTAS");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-
+        System.out.println("ABRIR ALUMNOS POR MATERIA");
         Escritorio.removeAll();
         Escritorio.repaint();
         VistaAlumnosXMateria axm = new VistaAlumnosXMateria();
@@ -199,7 +209,7 @@ public class PrincipalVistas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-
+        System.out.println("ABRIR FORMULARIO DE MATERIAS");
         Escritorio.removeAll();
         Escritorio.repaint();
         MateriasVista mv = new MateriasVista();
@@ -210,6 +220,7 @@ public class PrincipalVistas extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        System.out.println("ABRIR LISTA DE MATERIAS");
         Escritorio.removeAll();
         Escritorio.repaint();
         ListaMaterias lm = new ListaMaterias();
@@ -217,6 +228,23 @@ public class PrincipalVistas extends javax.swing.JFrame {
         Escritorio.add(lm);
         Escritorio.moveToFront(lm);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        System.out.println("PROBAR CONEXION...");
+        if(TPTransversal.Universidad.c.getConexion() != null){
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Estas conectado a la Base de Datos.",
+                    "Conexión OK",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("OK");
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Error al intentar conectar a la Base de Datos.",
+                    "Error en la conexión",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.out.println("ERROR");
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,5 +298,7 @@ public class PrincipalVistas extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
