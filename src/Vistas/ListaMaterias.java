@@ -8,12 +8,13 @@ package Vistas;
  * @author Pablo
  */
 public class ListaMaterias extends javax.swing.JInternalFrame {
-    final int LIMITE = 10;
-    int pagina = 1;
-    java.util.List<Recursos.Materia> materias = new java.util.ArrayList<>();
-    javax.swing.table.DefaultTableModel d;
-    BD.MateriaData md;
-    Recursos.Materia ma;
+    private final int LIMITE = 10;
+    private int pagina = 1;
+    private boolean editar = false;
+    private java.util.List<Recursos.Materia> materias = new java.util.ArrayList<>();
+    private javax.swing.table.DefaultTableModel d;
+    private BD.MateriaData md;
+    private Recursos.Materia ma;
     /**
      * Creates new form ListaMaterias
      */
@@ -49,6 +50,7 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
         chkEstado = new javax.swing.JCheckBox();
         btnEditar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -163,6 +165,14 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout formularioLayout = new javax.swing.GroupLayout(formulario);
         formulario.setLayout(formularioLayout);
         formularioLayout.setHorizontalGroup(
@@ -170,22 +180,25 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             .addGroup(formularioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAnio)
-                    .addComponent(txtNombre)
-                    .addComponent(txtId)
-                    .addComponent(chkEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formularioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar)
-                .addGap(7, 7, 7))
+                    .addGroup(formularioLayout.createSequentialGroup()
+                        .addGroup(formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAnio)
+                            .addComponent(txtNombre)
+                            .addComponent(txtId)
+                            .addComponent(chkEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, formularioLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))))
         );
         formularioLayout.setVerticalGroup(
             formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +220,8 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(formularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -218,7 +232,7 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(nav, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -272,9 +286,14 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
         guardar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JCheckBox chkEstado;
@@ -337,24 +356,38 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             navPag.setEnabled(false);
             navSig.setEnabled(false);
         }
+        //Ocultar formulario y resetear campos
+        txtId.setText("");
+        txtNombre.setText("");txtNombre.setEditable(false);
+        txtAnio.setText("");txtAnio.setEditable(false);
+        chkEstado.setSelected(true);chkEstado.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        formulario.setVisible(false);
+        editar = false;
     }
     private void formulario(){
         int id = tabla.getSelectedRow();
-        if(id > -1){
-            ma = materias.get(id+(pagina-1)*10);//ver para pagina 2, 3 ...
-            formulario.setVisible(true);
-            btnEditar.setEnabled(true);
-            txtId.setText(String.valueOf(ma.getIdMateria()));
-            txtNombre.setText(ma.getNombreMateria());
-            txtAnio.setText(String.valueOf(ma.getAnio()));
-            chkEstado.setSelected(ma.isEstado());
-        }
+        if(!editar){
+            if(id > -1){
+                ma = materias.get(id+(pagina-1)*10);//ver para pagina 2, 3 ...
+                formulario.setVisible(true);
+                btnEditar.setEnabled(true);
+                txtId.setText(String.valueOf(ma.getIdMateria()));
+                txtNombre.setText(ma.getNombreMateria());
+                txtAnio.setText(String.valueOf(ma.getAnio()));
+                chkEstado.setSelected(ma.isEstado());
+            }
+        }else javax.swing.JOptionPane.showMessageDialog(this, "Estas editando, guardar o cancelar editor.", "Error al Editar", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     private void editar(){
         txtNombre.setEditable(true);txtNombre.requestFocus();
         txtAnio.setEditable(true);
         chkEstado.setEnabled(true);
+        btnEditar.setEnabled(false);
         btnGuardar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        editar = true;
     }
     private void guardar(){
         int pag = pagina;
@@ -372,10 +405,22 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
         txtAnio.setEditable(false);
         chkEstado.setEnabled(false);
         btnEditar.setEnabled(false);
+        btnCancelar.setEnabled(false);
         btnGuardar.setEnabled(false);
         //actualizar la tabla
         actualizar();
         irA(pag);
+        editar = false;
+    }
+    private void cancelar(){
+        formulario.setVisible(false);
+        txtNombre.setEditable(false);
+        txtAnio.setEditable(false);
+        chkEstado.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        editar = false;
     }
     private void anterior(){
         if(pagina >= 2)irA(pagina - 1);
@@ -390,12 +435,12 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             navPag.setText(String.valueOf(pagina));
             d.setRowCount(0);
             for (int i = indice*10; i < LIMITE*pagina && i < materias.size(); i++) {
-                Recursos.Materia materia = materias.get(i);
+                ma = materias.get(i);
                 d.addRow(new String[] {
-                    String.valueOf(materia.getIdMateria()),
-                    materia.getNombreMateria(),
-                    String.valueOf(materia.getAnio()),
-                    String.valueOf(materia.isEstado())
+                    String.valueOf(ma.getIdMateria()),
+                    ma.getNombreMateria(),
+                    String.valueOf(ma.getAnio()),
+                    String.valueOf(ma.isEstado())
                 });
             }
         }

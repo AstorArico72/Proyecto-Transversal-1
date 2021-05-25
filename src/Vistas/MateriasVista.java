@@ -344,6 +344,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
             cambiarBuscar(false);
         }
         cambios = false;
+        nuevo();
     }
     /**
      * Salir
