@@ -67,11 +67,12 @@ public class MateriaData {
     }
     
     public Recursos.Materia buscarMateria(int id){
-        Recursos.Materia mat = new Recursos.Materia();
+        Recursos.Materia mat = null;
         String sql  = "SELECT * FROM "+ TABLA +" WHERE "+ CAMPOS[0] +"=?;";
         java.sql.PreparedStatement ps;
         java.sql.ResultSet rs;
         try {
+            mat = new Recursos.Materia();
             ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             rs = ps.executeQuery();
@@ -87,7 +88,7 @@ public class MateriaData {
         }
         return mat;
     }
-     public void desactivarMateria(int id){
+    public void desactivarMateria(int id){
         String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[3] +"=0 WHERE "+ CAMPOS[0] +"=?;";
         java.sql.PreparedStatement ps;
         try {
@@ -98,9 +99,20 @@ public class MateriaData {
         } catch (java.sql.SQLException ex) {
             javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Desactivar:\n"+ex.getMessage());
         }
+    }
+    public void activarMateria(int id){
+        String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[3] +"=1 WHERE "+ CAMPOS[0] +"=?;";
+        java.sql.PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);//, java.sql.Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error de Conexion al Desactivar:\n"+ex.getMessage());
+        }
      }
-     
-     public void actualizarMateria(Recursos.Materia mat){
+    public void actualizarMateria(Recursos.Materia mat){
         String sql = "UPDATE "+ TABLA +" SET "+ CAMPOS[1] +"=?, "+ CAMPOS[2] +"=? WHERE "+ CAMPOS[0] +"=?;"; //habia una , de mas
         java.sql.PreparedStatement ps;
         try {
