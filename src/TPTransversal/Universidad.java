@@ -5,7 +5,9 @@
 package TPTransversal; //Así terminó llamandose mi paquete (Universidad). Pueden editarlo para usar las otras clases.
 //En este caso como todos usamos la misma estructura, no sirve que cada uno tenga estructuras distintas.
 import BD.InscripcionData;
+import Recursos.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -80,9 +82,8 @@ public class Universidad {
 //            Comentar este bloque para realizar las pruebas                    //Pruebas de AlumnoData
             BD.AlumnoData ad = new BD.AlumnoData(c);
             
-//            System.out.println("Guardar Alumno");                               //.....Guardar Alumno
-//            int idNuevoAlumno = ad.guardarAlumno(nuevo);
-//            nuevo.setIdAlumno(idNuevoAlumno);
+            //System.out.println("Guardar Alumno");                               //.....Guardar Alumno
+            //ad.guardarAlumno(new Alumno());
             
 //            System.out.println("Buscar el Alumno con id:(PRUEBA) ");      //.....Buscar Alumno
 //            System.out.println(ad.buscarAlumno(3).toString());
@@ -91,7 +92,10 @@ public class Universidad {
 //            nuevo.setNombre("Martin Perez"); nuevo.setCorreo("mp_privado@micorreo.org");
 //            ad.actualizarAlumno(nuevo);
 //            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
-            
+//              Alumno aluprueba=ad.buscarAlumno(8);
+//              aluprueba.setFechaNacimiento(LocalDate.of(2000, 6, 10));
+//              ad.actualizarAlumno(aluprueba);
+              
 //            System.out.println("Desactivar un Alumno");                         //.....Desactivar Alumno
 //            ad.desactivarAlumno(idNuevoAlumno);
             
