@@ -388,7 +388,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
             jtNombre.setText(ma.getNombreMateria());
             jtAnio.setText(String.valueOf(ma.getAnio()));
             jCEstado.setSelected(ma.isEstado());
-            cambios = false;
+            cambios = false;btnGuardar.setEnabled(false);
             //mensaje exito
             mensaje.showMessageDialog(this, "Materia encontrada: "+ma.getNombreMateria(),
                 "Buscar",
@@ -403,7 +403,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
             else mensaje.showMessageDialog(this, "En desarrollo: "+btnGuardar.getText(),
                     "Ejecutar",
                     mensaje.INFORMATION_MESSAGE);
-            cambios = false;
+            cambios = false;btnGuardar.setEnabled(false);
         }
     }
     //Metodos privados secundarios
@@ -416,6 +416,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
                 mensaje.ERROR_MESSAGE);
         else{
             //preparar materia para guardar
+            ma.setIdMateria(Integer.parseInt(jtId.getText()));
             ma.setNombreMateria(jtNombre.getText());
             ma.setAnio(Integer.parseInt(jtAnio.getText()));
             ma.setEstado(jCEstado.isSelected());
