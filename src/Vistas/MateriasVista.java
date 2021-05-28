@@ -3,8 +3,6 @@
  */
 package Vistas;
 
-import javax.swing.JOptionPane;
-
 /**
  * MateriasVista
  * Barrionuevo Pablo: Agrego funcionalidades
@@ -495,9 +493,13 @@ public class MateriasVista extends javax.swing.JInternalFrame {
         btnReconectar.setVisible(false);
         formulario.setVisible(true);
     }
-
+    
     private void actualizarEjecutar(int i) {
-        if(i >= 0 && i < OPCIONES.length && !btnGuardar.getText().equals(OPCIONES[i]))
-            btnGuardar.setText(OPCIONES[i]);
+        if(i >= 0 && i < OPCIONES.length/* && !btnGuardar.getText().equals(OPCIONES[i])*/){
+            //System.out.println("Actualizar boton para id: "+ ma.getIdMateria());
+            if(ma.getIdMateria() == 0) btnGuardar.setText(OPCIONES[0]);
+            else btnGuardar.setText(OPCIONES[i]);
+            
+        }
     }
 }
