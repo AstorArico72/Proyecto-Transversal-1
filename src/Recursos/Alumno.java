@@ -57,11 +57,19 @@ public class Alumno {
         //datos no requeridos
         completarDefault();
     }
-
     public Alumno(String nombre, LocalDate fechNac, int estado) {
         this.nombre = nombre;
         this.estado = estado;
         this.fechNac = fechNac;
+        completarDefault();
+    }
+
+    public Alumno(String nombre, LocalDate fechNac, int estado,int legajo) {
+        this.nombre = nombre;
+        this.estado = estado;
+        this.fechNac = fechNac;
+        this.legajo = legajo;
+        completarDefault();
     }
 
     /**
@@ -77,6 +85,7 @@ public class Alumno {
      * @param fechIns
      * @param comentarios
      */
+    //Constructor Completo
     public Alumno(
             int idAlumno, String nombre, int legajo, int estado,
             java.time.LocalDate fechNac, String correo, String tel,
@@ -90,6 +99,20 @@ public class Alumno {
         this.tel = tel;
         this.fechIns = fechIns;
         this.comentarios = comentarios;
+    }
+    public Alumno(
+            String nombre, int legajo, int estado,
+            java.time.LocalDate fechNac,
+            java.time.LocalDate fechIns) {
+        this.idAlumno = 0;
+        this.nombre = nombre;
+        this.legajo = legajo;
+        this.estado = estado;
+        this.fechNac = fechNac;
+        this.correo = DEFAULT[1];
+        this.tel = DEFAULT[1];
+        this.fechIns = fechIns;
+        this.comentarios = DEFAULT[4];
     }
     //..........................................................................Getters de todos los atributos
 

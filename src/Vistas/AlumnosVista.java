@@ -17,12 +17,13 @@ import javax.swing.JOptionPane;
  * @author melid
  */
 public class AlumnosVista extends javax.swing.JInternalFrame {
-
+    private Alumno alumnoAux;
     private final AlumnoData alumnoData;
 
     public AlumnosVista() {
         initComponents();
         alumnoData = new AlumnoData(TPTransversal.Universidad.c);
+        alumnoAux = new Alumno();
     }
 
     /**
@@ -41,13 +42,21 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         jtId = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
-        jtFechNac = new javax.swing.JTextField();
         chActivo = new javax.swing.JCheckBox();
         btnBuscar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnBorrar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jfDia = new javax.swing.JFormattedTextField();
+        jfAnio = new javax.swing.JFormattedTextField();
+        jfMes = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLegajo = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        lfechaInscripcion = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -66,24 +75,22 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Activo:");
 
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+
+        chActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chActivoActionPerformed(evt);
+            }
+        });
+
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnBorrar.setText("BORRAR");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -101,49 +108,111 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
             }
         });
 
+        jfDia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jfDiaKeyTyped(evt);
+            }
+        });
+
+        jfAnio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jfAnioKeyTyped(evt);
+            }
+        });
+
+        jfMes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jfMesKeyTyped(evt);
+            }
+        });
+
+        jLabel7.setText("Mes");
+
+        jLabel6.setText("Dia");
+
+        jLabel8.setText("Año");
+        jLabel8.setAlignmentY(0.0F);
+
+        jLabel9.setText("N° Legajo:");
+
+        jLabel10.setText("Fecha de Inscripcion:");
+
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(131, 131, 131)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
+                        .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnGuardar)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                            .addComponent(jLabel9))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(chActivo)
-                                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtFechNac, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(231, 231, 231)
                                 .addComponent(btnBuscar)
-                                .addGap(35, 35, 35))))
+                                .addGap(0, 107, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBorrar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLimpiar)
-                        .addGap(0, 128, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(188, 188, 188)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(127, 127, 127)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jLabel6))
+                                            .addComponent(jfDia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnActualizar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnLimpiar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jfMes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lfechaInscripcion))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(34, 34, 34)
+                                .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chActivo)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,121 +227,184 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jtFechNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(chActivo))
+                    .addComponent(jLabel9)
+                    .addComponent(jLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnBorrar)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnLimpiar))
-                .addGap(0, 64, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
+                    .addComponent(jfDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jfAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(chActivo)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(lfechaInscripcion))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnActualizar)
+                            .addComponent(btnLimpiar)
+                            .addComponent(btnGuardar))
+                        .addGap(25, 25, 25))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-
-        if (jtId.getText() != null) {
-            String nombre = jtNombre.getName();
-            LocalDate fechNac = LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        
+        if (jtId.getText() != "") {
+            int legajo=Integer.parseInt(jLegajo.getText());
+            String nombre = jtNombre.getText();
+            LocalDate fechNac = LocalDate.of(Integer.parseInt(jfAnio.getText()), Integer.parseInt(jfMes.getText()), Integer.parseInt(jfDia.getText()));
             int estado;
-            if (chActivo.isEnabled()) {
+            if (chActivo.isSelected()) {
                 estado = 1;
             } else {
                 estado = 0;
             }
 
-            Alumno alumno = new Alumno(nombre, fechNac, estado);
-            alumnoData.actualizarAlumno(alumno);
+            alumnoAux.setNombre(nombre);
+            alumnoAux.setFechaNacimiento(fechNac);
+            alumnoAux.setLegajo(legajo);
+            alumnoAux.setEstado(estado);
+            int rs=alumnoData.actualizarAlumno(alumnoAux);
+            if(rs!=0){
+                JOptionPane.showMessageDialog(this, "El alumno se actualizó con exito");
+            }
 
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String nombre = jtNombre.getName();
-        LocalDate fechNac = LocalDate.parse(jtFechNac.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        int estado;
-        if (chActivo.isEnabled()) {
-            estado = 1;
-        } else {
-            estado = 0;
-        }
-
-        Alumno alumno = new Alumno(nombre, fechNac, estado);
-        alumnoData.guardarAlumno(alumno);
-        jtId.setText(alumno.getIdAlumno() + "");
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-
-        int id = Integer.parseInt(jtId.getText());
-        alumnoData.desactivarAlumno(id);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
 
         jtId.setText("");
         jtNombre.setText("");
-        jtFechNac.setText("");
-        chActivo.setEnabled(false);
+        jfDia.setText("");
+        jfMes.setText("");
+        jfAnio.setText("");
+        chActivo.setSelected(false);
+        lfechaInscripcion.setText("");
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         jtNombre.setText("");
-        jtFechNac.setText("");
-        chActivo.setEnabled(false);
+        jfDia.setText("");
+        jfMes.setText("");
+        jfAnio.setText("");
         boolean aux;
         int id = Integer.parseInt(jtId.getText());
-        Alumno alumno = alumnoData.buscarAlumno(id);
-        if (alumno != null) {
-            jtId.setText(alumno.getIdAlumno() + "");
-            jtNombre.setText(alumno.getNombre() + "");
-            jtFechNac.setText(alumno.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            aux = alumno.getEstado()==1;
+        alumnoAux = alumnoData.buscarAlumno(id);
+        if (alumnoAux != null) {
+            jtId.setText(alumnoAux.getIdAlumno() + "");
+            jtNombre.setText(alumnoAux.getNombre() + "");
+            jLegajo.setText(alumnoAux.getLegajo() + "");
+            jfDia.setText(alumnoAux.getFechaNacimiento().getDayOfMonth() + "");
+            jfMes.setText(alumnoAux.getFechaNacimiento().getMonthValue() + "");
+            jfAnio.setText(alumnoAux.getFechaNacimiento().getYear() + "");
+            aux = alumnoAux.getEstado() == 1;
             chActivo.setSelected(aux);
-            
-        }else{
-           JOptionPane.showMessageDialog(this,"El alumno no se encontró en la base de datos");
+            lfechaInscripcion.setText(alumnoAux.getFechaInscripcion() + "");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "El alumno no se encontró en la base de datos");
         }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtNombreActionPerformed
+
+    private void chActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chActivoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int enabled;
+        //int ID = Integer.parseInt(jtId.getText());
+        String nombre = jtNombre.getText();
+        int legajo = Integer.parseInt(jLegajo.getText());
+        LocalDate fechaNacimiento = LocalDate.of(Integer.parseInt(jfAnio.getText()), Integer.parseInt(jfMes.getText()), Integer.parseInt(jfDia.getText()));
+        if (chActivo.isSelected()) {
+            enabled = 1;
+        } else {
+            enabled = 0;
+        }
+        Alumno alumno = new Alumno(nombre, legajo, enabled, fechaNacimiento, LocalDate.now());
+        int rs = alumnoData.guardarAlumno(alumno);
+        if (rs != 0) {
+            JOptionPane.showMessageDialog(this, "Alumno guardado con exito");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jfDiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jfDiaKeyTyped
+        if(jfDia.getText().length()>1){
+            jfMes.requestFocus();
+            
+        }
+        if(jfDia.getText().length()>=2){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jfDiaKeyTyped
+
+    private void jfMesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jfMesKeyTyped
+        if(jfMes.getText().length()>1){
+            jfAnio.requestFocus();
+            
+        }
+         if(jfMes.getText().length()>=2){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jfMesKeyTyped
+
+    private void jfAnioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jfAnioKeyTyped
+        if(jfAnio.getText().length()>=4){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jfAnioKeyTyped
+          
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chActivo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jtFechNac;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jLegajo;
+    private javax.swing.JFormattedTextField jfAnio;
+    private javax.swing.JFormattedTextField jfDia;
+    private javax.swing.JFormattedTextField jfMes;
     private javax.swing.JTextField jtId;
     private javax.swing.JTextField jtNombre;
+    private javax.swing.JLabel lfechaInscripcion;
     // End of variables declaration//GEN-END:variables
 
-    private static class Localdate {
-
-        public Localdate() {
-        }
-    }
 }
