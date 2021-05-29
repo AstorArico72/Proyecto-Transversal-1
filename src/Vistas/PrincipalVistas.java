@@ -138,6 +138,11 @@ public class PrincipalVistas extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Consultas");
+        jMenu6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu6ActionPerformed(evt);
+            }
+        });
 
         jMenuItem6.setText("Listado de alumnos Por Materias");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -196,18 +201,6 @@ public class PrincipalVistas extends javax.swing.JFrame {
         System.out.println("ABRIR MANIPULACION DE NOTAS");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        System.out.println("ABRIR ALUMNOS POR MATERIA");
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        VistaAlumnosXMateria axm = new VistaAlumnosXMateria();
-        axm.setVisible(true);
-        Escritorio.add(axm);
-        Escritorio.moveToFront(axm);
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         System.out.println("ABRIR FORMULARIO DE MATERIAS");
         Escritorio.removeAll();
@@ -245,6 +238,21 @@ public class PrincipalVistas extends javax.swing.JFrame {
             System.out.println("ERROR");
         }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
+
+    }//GEN-LAST:event_jMenu6ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        System.out.println("ABRIR ALUMNOS POR MATERIA");
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaAlumnosXMateria axm = new VistaAlumnosXMateria();
+        axm.setVisible(true);
+        Escritorio.add(axm);
+        Escritorio.moveToFront(axm);
+
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments

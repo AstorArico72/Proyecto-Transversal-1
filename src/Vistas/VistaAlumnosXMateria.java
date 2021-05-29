@@ -9,6 +9,7 @@ import Recursos.*;
 import BD.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -20,9 +21,9 @@ import javax.swing.table.DefaultTableModel;
 public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo;
-    private ArrayList<Inscripcion> listaCursada;
-    private ArrayList<Materia> listaMaterias;
-    private ArrayList<Alumno> listaAlumnos;
+    private List<Inscripcion> listaCursada;
+    private List<Materia> listaMaterias;
+    private List<Alumno> listaAlumnos;
     private InscripcionData cursadaData;
     private MateriaData materiaData;
     private AlumnoData alumnoData;
@@ -30,16 +31,17 @@ public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
     public VistaAlumnosXMateria() {
         initComponents();
 
-        modelo = new DefaultTableModel();
-
+        modelo=new DefaultTableModel();
         cursadaData = new InscripcionData(TPTransversal.Universidad.c);
-        listaCursada = (ArrayList) cursadaData.obtenerInscripciones();
-
+        listaCursada = new ArrayList<>(); 
+        listaCursada.addAll(cursadaData.obtenerInscripciones());
         materiaData = new MateriaData(TPTransversal.Universidad.c);
-        listaMaterias = (ArrayList) materiaData.obtenerMaterias();
+        listaMaterias = new ArrayList<>();
+        listaMaterias.addAll(materiaData.obtenerMaterias());
 
         alumnoData = new AlumnoData(TPTransversal.Universidad.c);
-        listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos();
+        listaAlumnos = new ArrayList<>();
+        listaAlumnos.addAll(alumnoData.obtenerAlumnos());
 
         cargarMaterias();
         armaCabeceraTabla();
@@ -61,6 +63,11 @@ public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
         cbMaterias = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tAlumnos = new javax.swing.JTable();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 204, 204));
@@ -132,15 +139,11 @@ public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
 
     private void armaCabeceraTabla() {
 
-        ArrayList<Object> columns = new ArrayList<Object>();
-        columns.add("ID");
-        columns.add("MATERIA");
-        columns.add("NOTA");
 
-        for (Object it : columns) {
+            modelo.addColumn("ID");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("NOTA");
 
-            modelo.addColumn(it);
-        }
 
         tAlumnos.setModel(modelo);
 
@@ -164,7 +167,7 @@ public class VistaAlumnosXMateria extends javax.swing.JInternalFrame {
         for (Inscripcion m : listaCursada) {
             if (m.getMateria().getIdMateria() == mat.getIdMateria()) {
 
-                modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(), m.getAlumno().getNombre(), m.getNota()});
+                modelo.addRow(new Object[]{m.getAlumno().getIdAlumno(), alumnoData.buscarAlumno(m.getAlumno().getIdAlumno()).getNombre(), m.getNota()});
 
             }
         }
