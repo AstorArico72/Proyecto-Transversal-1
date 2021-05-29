@@ -293,6 +293,7 @@ public class AlumnosVista extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
 
         jtId.setText("");
+        jLegajo.setText("");
         jtNombre.setText("");
         jfDia.setText("");
         jfMes.setText("");
