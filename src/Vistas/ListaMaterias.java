@@ -11,7 +11,7 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
     private final int LIMITE = 10;
     private int pagina = 1;
     private boolean editar = false;
-    private java.util.List<Recursos.Materia> materias = new java.util.ArrayList<>();
+    private java.util.List<Recursos.Materia> materias;
     private javax.swing.table.DefaultTableModel d;
     private BD.MateriaData md;
     private Recursos.Materia ma;
@@ -315,56 +315,64 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void iniciar() {
-        md = new BD.MateriaData(TPTransversal.Universidad.c);
-        ma = new Recursos.Materia();
-        //Tabla
-        d = //((javax.swing.table.DefaultTableModel) tabla.getModel());
-            new javax.swing.table.DefaultTableModel() {
-                @Override
-                public boolean isCellEditable(int row, int column) {       
-                    return false;
-                }
-            };
-        tabla.setModel(d);
-        d.addColumn("Id");d.addColumn("Nombre");d.addColumn("Año");d.addColumn("Estado");
-        //nav y formulario
-        nav.setVisible(false);
-        formulario.setVisible(false);
-        //actualizar
-        actualizar();
+        materias = new java.util.ArrayList<>();
+        if(TPTransversal.Universidad.c.getConexion() != null){
+            btnActualizar.setText("Actualizar");
+            md = new BD.MateriaData(TPTransversal.Universidad.c);
+            ma = new Recursos.Materia();
+            //Tabla
+            d = //((javax.swing.table.DefaultTableModel) tabla.getModel());
+                new javax.swing.table.DefaultTableModel() {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {       
+                        return false;
+                    }
+                };
+            tabla.setModel(d);
+            d.addColumn("Id");d.addColumn("Nombre");d.addColumn("Año");d.addColumn("Estado");
+            //nav y formulario
+            nav.setVisible(false);
+            formulario.setVisible(false);
+            //actualizar
+            actualizar();
+        }else btnActualizar.setText("Reconectar");
     }
     
     private void actualizar(){
-        int max = 0;
-        materias = md.obtenerMaterias();
-        //mostrar las materias en la tabla, con limite
-        pagina = 1;
-        irA(pagina);
-        //actualizar para navegar
-        max = Math.round(materias.size() / LIMITE) + 1;
-        navPag.setText("1");
-        navMax.setText(String.valueOf(max));
-        //mostrar navegador si hay mas de 10 elementos
-        if(max > 1){
-            nav.setVisible(true);
-            navAnt.setEnabled(true);
-            navPag.setEnabled(true);
-            navSig.setEnabled(true);
+        if(btnActualizar.getText().equals("Actualizar")){
+            int max = 0;
+            materias = md.obtenerMaterias();
+            //mostrar las materias en la tabla, con limite
+            pagina = 1;
+            irA(pagina);
+            //actualizar para navegar
+            max = Math.round(materias.size() / LIMITE) + 1;
+            navPag.setText("1");
+            navMax.setText(String.valueOf(max));
+            //mostrar navegador si hay mas de 10 elementos
+            if(max > 1){
+                nav.setVisible(true);
+                navAnt.setEnabled(true);
+                navPag.setEnabled(true);
+                navSig.setEnabled(true);
+            }else{
+                nav.setVisible(false);
+                navAnt.setEnabled(false);
+                navPag.setEnabled(false);
+                navSig.setEnabled(false);
+            }
+            //Ocultar formulario y resetear campos
+            txtId.setText("");
+            txtNombre.setText("");txtNombre.setEditable(false);
+            txtAnio.setText("");txtAnio.setEditable(false);
+            chkEstado.setSelected(true);chkEstado.setEnabled(false);
+            btnEditar.setEnabled(false);
+            btnGuardar.setEnabled(false);
+            formulario.setVisible(false);
+            editar = false;
         }else{
-            nav.setVisible(false);
-            navAnt.setEnabled(false);
-            navPag.setEnabled(false);
-            navSig.setEnabled(false);
+            iniciar();
         }
-        //Ocultar formulario y resetear campos
-        txtId.setText("");
-        txtNombre.setText("");txtNombre.setEditable(false);
-        txtAnio.setText("");txtAnio.setEditable(false);
-        chkEstado.setSelected(true);chkEstado.setEnabled(false);
-        btnEditar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        formulario.setVisible(false);
-        editar = false;
     }
     private void formulario(){
         int id = tabla.getSelectedRow();

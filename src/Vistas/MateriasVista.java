@@ -341,7 +341,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
             mostrarTodo();
             cambiarBuscar(false);
         }
-        cambios = false;
+        cambios = false;btnGuardar.setEnabled(false);
         nuevo();
     }
     /**
@@ -365,7 +365,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
         jtAnio.setText("");
         jCEstado.setSelected(true);
         jCBuscar.setSelected(false);
-        cambios = false;
+        cambios = false;btnGuardar.setEnabled(false);
         cambiarBuscar(false);
         actualizarEjecutar(0);
     }
@@ -496,7 +496,7 @@ public class MateriasVista extends javax.swing.JInternalFrame {
     }
     
     private void actualizarEjecutar(int i) {
-        if(i >= 0 && i < OPCIONES.length/* && !btnGuardar.getText().equals(OPCIONES[i])*/){
+        if(ma != null && i >= 0 && i < OPCIONES.length/* && !btnGuardar.getText().equals(OPCIONES[i])*/){
             //System.out.println("Actualizar boton para id: "+ ma.getIdMateria());
             if(ma.getIdMateria() == 0) btnGuardar.setText(OPCIONES[0]);
             else btnGuardar.setText(OPCIONES[i]);
