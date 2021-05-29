@@ -416,14 +416,14 @@ public class MateriasVista extends javax.swing.JInternalFrame {
                 mensaje.ERROR_MESSAGE);
         else{
             //preparar materia para guardar
-            ma.setIdMateria(Integer.parseInt(jtId.getText()));
+            //ma.setIdMateria(Integer.parseInt(jtId.getText()));
             ma.setNombreMateria(jtNombre.getText());
             ma.setAnio(Integer.parseInt(jtAnio.getText()));
             ma.setEstado(jCEstado.isSelected());
             
             //guardar
             id = md.guardarMateria(ma);
-            
+            ma.setIdMateria(id);
             //actualizar campo de id
             jtId.setText(String.valueOf(id));
             
