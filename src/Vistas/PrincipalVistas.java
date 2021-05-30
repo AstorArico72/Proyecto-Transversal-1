@@ -171,7 +171,19 @@ public class PrincipalVistas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+
+
+
+
+
+
         System.out.println("ABRIR FORMULARIO DE INSCRIPCION");
+         Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioDeInscripcion fi = new FormularioDeInscripcion ();
+        fi.setVisible(true);
+        Escritorio.add(fi);
+        Escritorio.moveToFront(fi);
         
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 

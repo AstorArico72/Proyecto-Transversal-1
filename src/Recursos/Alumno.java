@@ -191,16 +191,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{"
-                + "idAlumno=" + idAlumno
-                + ", nombre=" + nombre
-                + ", legajo=" + legajo
-                + ", estado=" + estado
-                + ", fecha de Nacimiento=" + fechNac
-                + ", correo=" + correo
-                + ", telefono=" + tel
-                + ", fecha de Inscripcion=" + fechIns
-                + ", comentarios=" + comentarios + '}';
+        return nombre;
     }
 
     //..........................................................................Metodos Privados

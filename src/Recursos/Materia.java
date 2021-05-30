@@ -37,6 +37,14 @@ public class Materia {
         this.anio = anio;
         this.estado = estado;
     }
+    
+     public Materia(int idMateria, String nombreMateria) {
+       this.idMateria = idMateria;
+       this.nombreMateria = nombreMateria;
+        anio = Integer.parseInt(DEF[2]);
+        estado = Boolean.parseBoolean(DEF[3]);
+    }
+
 
     public int getIdMateria() {
         return idMateria;
