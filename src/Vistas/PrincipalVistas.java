@@ -211,6 +211,12 @@ public class PrincipalVistas extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         System.out.println("ABRIR MANIPULACION DE NOTAS");
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        CargaDeNotasVista cn = new CargaDeNotasVista();
+        cn.setVisible(true);
+        Escritorio.add(cn);
+        Escritorio.moveToFront(cn);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

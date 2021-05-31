@@ -11,7 +11,7 @@ public class Conexion {
     //Constante
     final private String 
         DRIVER = "org.mariadb.jdbc.Driver",
-        CONF[] = {"localhost","8008","UniversidadGrupo1","root",""};
+        CONF[] = {"localhost","3306","UniversidadGrupo1","root",""};
     //Atributos
     private String url = "jdbc:mysql://"+ CONF[0] +":"+ CONF[1] +"/"+ CONF[2];
     private String usuario = CONF[3];

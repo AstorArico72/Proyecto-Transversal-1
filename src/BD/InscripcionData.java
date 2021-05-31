@@ -6,8 +6,6 @@ package BD;
 import Recursos.Alumno;
 import Recursos.Inscripcion;
 import Recursos.Materia;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -295,5 +293,20 @@ public class InscripcionData {
 
         return i;
     }
-
+    public double getNota(int idAlumno, int idMateria){
+        double nota = 0;
+        String sql = "SELECT "+ CAMPOSINSCRIPCION[4] +" FROM inscripcion "
+                + "WHERE "+ CAMPOSINSCRIPCION[1] +" = "+ idAlumno 
+                + " AND "+ CAMPOSINSCRIPCION[2] +" = "+ idMateria ;
+        try {
+            java.sql.PreparedStatement ps = con.prepareStatement(sql);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                nota = rs.getDouble(1);
+            }
+        } catch (java.sql.SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al obtener Nota: \n" + ex.getMessage());
+        }
+        return nota;
+    }
 }

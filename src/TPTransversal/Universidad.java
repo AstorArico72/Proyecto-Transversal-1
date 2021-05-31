@@ -1,23 +1,13 @@
 /**
- * Barrionuevo Pablo: edito lo ultimo subido, para adaptarse al TP
+ * Laboratorio 1 Trabajo Transversal
+ * Grupo 1
+ * Astor Arico
+ * Gianfranco Bruno
+ * Di-Mauro Melisa
+ * Barrionuevo Pablo
  */
 
-package TPTransversal; //Así terminó llamandose mi paquete (Universidad). Pueden editarlo para usar las otras clases.
-//En este caso como todos usamos la misma estructura, no sirve que cada uno tenga estructuras distintas.
-import BD.InscripcionData;
-import Recursos.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-
-
-/*
-import java.lang.reflect.InvocationTargetException;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-//Todos ésos imports están en uso.
-*/
+package TPTransversal;
 public class Universidad {
     public static BD.Conexion c = new BD.Conexion();
     /**
@@ -25,16 +15,7 @@ public class Universidad {
      * @param args
      */
     public static void main(String[] args) {
-        /*
-        Barrionuevo Pablo: Edito para usar Recursos.Materia
-        Por ahora, es necesario instanciar objetos en el main.
-        A la hora de crear la aplicación gráfica, éso se corregirá.
-        */
-        Recursos.Materia lab2 = new Recursos.Materia("Laboratorio II", 2, true);
-        System.out.println(lab2.toString());
-        //nuevaMateria (lab2); -> lo hacemos con conexion establecida
-//=======<<<<<<< Upstream, based on origin/master
-        
+        /*                                                                      //Pruebas
 //        //Prueba de Alumno nuevo
 //        Recursos.Alumno nuevo = new Recursos.Alumno();
 //        nuevo.setNombre("Jhon Smith"); nuevo.setLegajo(10001); nuevo.setFechaNacimiento(java.time.LocalDate.of(1988, java.time.Month.JULY, 1));
@@ -93,7 +74,7 @@ public class Universidad {
 //            ad.actualizarAlumno(nuevo);
 //            System.out.println(ad.buscarAlumno(idNuevoAlumno).toString());
 //              Alumno aluprueba=ad.buscarAlumno(8);
-//              aluprueba.setFechaNacimiento(LocalDate.of(2000, 6, 10));
+//              aluprueba.setFechaNacimiento(java.time.LocalDate.of(2000, 6, 10));
 //              ad.actualizarAlumno(aluprueba);
               
 //            System.out.println("Desactivar un Alumno");                         //.....Desactivar Alumno
@@ -105,8 +86,8 @@ public class Universidad {
                                                                        //Final de Pruebas de AlumnoData
             
                                                                                 //Prueba InscripcionData
-            InscripcionData idata=new InscripcionData(c);
-            idata.inscribirAlumno(2, md.buscarMateria(1), LocalDate.now(), 10); //inscribir alumno
+            BD.InscripcionData idata=new BD.InscripcionData(c);
+            idata.inscribirAlumno(2, md.buscarMateria(1), java.time.LocalDate.now(), 10); //inscribir alumno
 //            System.out.println("Guardar Inscripcion"); 
 //            idata.guardarInscripcion(cursada);                                      //guardar alumno
             
@@ -134,8 +115,8 @@ public class Universidad {
         }else{
             System.out.println("Error en conexion...");
         }
+        *///Fin Pruebas
         //Vistas de la interfaz de usuario
         Vistas.PrincipalVistas.iniciar();
-
     }
 }

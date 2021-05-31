@@ -1,15 +1,19 @@
 package Vistas;
 
+import Recursos.Materia;
+
 public class CargaDeNotasVista extends javax.swing.JInternalFrame {
     private BD.AlumnoData alumnoData;
     private BD.InscripcionData inscripcionData;
     private javax.swing.table.DefaultTableModel modeloPorDefecto;
     
     public CargaDeNotasVista() {
-        initComponents();
         alumnoData = new BD.AlumnoData (TPTransversal.Universidad.c);
         inscripcionData = new BD.InscripcionData (TPTransversal.Universidad.c);
-        modeloPorDefecto = new javax.swing.table.DefaultTableModel (new String [] {"ID", "Nombre", "Nota"}, 20);
+        modeloPorDefecto = new javax.swing.table.DefaultTableModel (new String [] {"ID", "Nombre", "Nota"}, 0);
+        initComponents();
+        TablaMaterias.setModel(modeloPorDefecto);
+        cbAlumnoItemStateChanged(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -117,17 +121,26 @@ public class CargaDeNotasVista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbAlumnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAlumnoItemStateChanged
-        Recursos.Alumno temp0 = (Recursos.Alumno) evt.getItem();
-        int id = temp0.getIdAlumno();
-        java.util.List <Recursos.Materia> materias = inscripcionData.listarMaterias(id);
-        TablaMaterias.removeAll();
-        java.util.Iterator <Recursos.Inscripcion> it0 = inscripcionData.obtenerInscripciones().stream ().filter (item -> item.getAlumno().getIdAlumno() == id).collect (java.util.stream.Collectors.toList ()).iterator();
-        Recursos.Inscripcion temp2; //Un ítem.
-        while (it0.hasNext ()) {
-            temp2 = it0.next ();
-            for (Recursos.Materia temp1:materias) {
-                modeloPorDefecto.addRow(new Object [] {temp1.getIdMateria(), temp1.getNombreMateria(), temp2.getNota()});
+        if(cbAlumno.getSelectedIndex() > -1){
+            Recursos.Alumno temp0 = (Recursos.Alumno)cbAlumno.getSelectedItem();
+            int id = temp0.getIdAlumno();
+            java.util.List <Recursos.Materia> materias = inscripcionData.listarMaterias(id);
+            borraFilasTabla();
+            //Llenar la tabla de materias con las materias inscriptas y con la nota para modificar
+            for (Recursos.Materia materia : materias) {
+                double nota = inscripcionData.getNota(id,materia.getIdMateria());
+                modeloPorDefecto.addRow(new Object [] {materia.getIdMateria(), materia.getNombreMateria(), nota});
             }
+            /*
+            java.util.List <Recursos.Inscripcion> it0 = inscripcionData.obtenerInscripciones().stream ().filter (item -> item.getAlumno().getIdAlumno() == id).collect (java.util.stream.Collectors.toList ());
+            //Recursos.Inscripcion temp2; //Un ítem.
+            //while () {
+            //    temp2 = it0.next ();
+                for (Recursos.Inscripcion temp1:it0) {
+                    modeloPorDefecto.addRow(new Object [] {temp1.getMateria().getIdMateria(), temp1.getMateria().getNombreMateria(), temp1.getNota()});
+                }
+            //}
+            */
         }
     }//GEN-LAST:event_cbAlumnoItemStateChanged
 
@@ -140,4 +153,12 @@ public class CargaDeNotasVista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+    public void borraFilasTabla(){
+        int a = modeloPorDefecto.getRowCount()-1;
+
+        for(int i=a; i>=0; i--){
+            modeloPorDefecto.removeRow(i);
+
+        }
+    }
 }
